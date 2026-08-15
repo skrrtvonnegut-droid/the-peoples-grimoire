@@ -10,7 +10,7 @@ It names a horizon: a future in which technology expands human freedom, shared a
 
 ## Founding vow
 
-> **We imbue this spell with the magic and compassion of Mother Green Tara.**
+> **We imbue this spell with compassion that moves from intention into aid.**
 >
 > May this project seek to end the suffering of all those who feel shackled by the material conditions of their lives.
 >
@@ -20,12 +20,10 @@ It names a horizon: a future in which technology expands human freedom, shared a
 > May its automations loosen chains rather than tighten them.  
 > May its systems protect the vulnerable rather than concentrate power.  
 > May it remain open to correction, governed by compassion, and accountable to the people it serves.
->
-> **Oṃ Tāre Tuttāre Ture Svāhā.**
 
 This is not a product oath. It is a **bodhisattva vow expressed through infrastructure**.
 
-Mother Green Tara represents compassion that moves: the readiness to cross from intention into aid. The project invokes that orientation without making Buddhist belief, ritual, or language a condition of participation. Contributors are not asked to share a faith. They are asked to accept the material demand of the vow: meet suffering with practical compassion, trace power honestly, and build systems that increase the real agency of people who are most constrained by existing conditions.
+The vow names compassion that moves: the readiness to cross from intention into aid. The project adopts that orientation without making any spiritual belief, ritual, or language a condition of participation. Contributors are not asked to share a faith. They are asked to accept the material demand of the vow: meet suffering with practical compassion, trace power honestly, and build systems that increase the real agency of people who are most constrained by existing conditions.
 
 Compassion here is not sentimentality, paternalism, or permission to decide for others. It requires consent, safety, accessibility, repair, meaningful exit, and attention to who absorbs the cost of convenience. The project has failed its vow whenever it becomes technically impressive by making people more surveilled, dependent, disposable, or afraid.
 
