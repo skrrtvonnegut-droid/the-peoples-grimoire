@@ -17,13 +17,32 @@ Most SaaS applications are excellent organs and terrible organisms. Each holds a
 **The People’s Grimoire** is an open-source framework for connecting those fragments into a coherent, governable whole.
 
 > [!WARNING]
-> This project is **pre-alpha**. The current runtime is a safe architectural scaffold, not a production synchronization service. It performs dry-runs and in-memory demonstrations only.
+> This project is **pre-alpha**. The current runtime is a safe architectural scaffold, not a production synchronization service. The conversational bootstrap kit produces validated plans and synthetic examples, but live reads and writes depend on the capabilities exposed by the operator’s chatbot host and connected providers.
+
+## Install your own Grimoire
+
+The primary installer is a guided conversation.
+
+1. Clone or download this repository.
+2. Connect GitHub and Notion through your chatbot host’s official integration UI.
+3. Give the chatbot access to the repository or upload `BOOTSTRAP.md` with the `bootstrap/`, `schemas/`, and `examples/bootstrap/` folders.
+4. Ask it to execute `BOOTSTRAP.md`, beginning with readiness and read-only discovery.
+5. Review the history-derived topology and bootstrap plan before approving any durable writes.
+6. Let the chatbot create or reconcile your private core and semantic control plane, then verify the result with you.
+
+The installer does not begin with a universal second-brain taxonomy. It inspects only the chat, notebook, file, Notion, and GitHub sources you approve; looks for recurring domains, artifact types, workflows, and existing canonical objects; and proposes a structure shaped around the life and work you actually have.
+
+GitHub and Notion are the first carrier pair. Profiles and plans refer to abstract roles—cognition, semantic memory, versioned artifacts, and secret store—so compatible providers can be replaced later without rebuilding the domain model.
+
+Read [Install Your Grimoire](INSTALL.md), then execute the [Bootstrap Steward](BOOTSTRAP.md).
 
 ## What makes it different
 
 - **User-owned:** data, mappings, policies, and credentials remain under the operator’s control.
 - **Local-first and self-hostable:** no mandatory central service becomes the new owner of a person’s digital life.
+- **History-shaped:** onboarding derives durable domains from approved recurring patterns instead of imposing a generic folder tree.
 - **Connector-based:** every SaaS application is an adapter, not a dependency embedded in the core.
+- **Carrier-neutral:** semantic roles remain stable when providers are replaced.
 - **Event-driven:** changes become explicit, traceable events instead of invisible background magic.
 - **Policy-governed:** every proposed synchronization can be filtered, approved, reversed, or refused.
 - **Human-accountable:** AI may interpret, draft, and coordinate, but people retain authority over consequential actions.
@@ -37,6 +56,7 @@ Most SaaS applications are excellent organs and terrible organisms. Each holds a
 - **The event ledger** is its memory.
 - **Policies and permissions** are its boundaries and immune system.
 - **Recipes** are learned patterns of coordination.
+- **The bootstrap profile** is its first map of the operator’s actual ecology.
 - **The person or community operating it** remains its author and conscience.
 
 ```mermaid
@@ -65,6 +85,21 @@ The first recipes will explore:
 Bidirectional synchronization is **field-specific**, not blind. Every recipe declares which system is authoritative, how identities are linked, how conflicts are held, and whether a person must approve the proposed change.
 
 Read the [Notion ↔ GitHub MVP design](docs/connectors/NOTION_GITHUB_MVP.md).
+
+## Conversational bootstrap
+
+The bootstrap system is split into portable layers:
+
+- [`BOOTSTRAP.md`](BOOTSTRAP.md) — executable installer protocol for a capable chatbot.
+- [`bootstrap/blueprints/`](bootstrap/blueprints/) — provider-neutral private-core and control-plane structures.
+- [`bootstrap/carriers/`](bootstrap/carriers/) — provider bindings and degraded-mode requirements.
+- [`schemas/grimoire-bootstrap-profile.schema.json`](schemas/grimoire-bootstrap-profile.schema.json) — approved discovery and topology contract.
+- [`schemas/grimoire-bootstrap-plan.schema.json`](schemas/grimoire-bootstrap-plan.schema.json) — reviewable plan/apply contract.
+- [`examples/bootstrap/`](examples/bootstrap/) — synthetic validated fixtures.
+
+The chatbot is an interface to the protocol, not the canonical owner of the instance. A host without direct provider writes can still produce a portable plan and manual work orders.
+
+Read the [Bootstrap Protocol architecture](docs/BOOTSTRAP_PROTOCOL.md).
 
 ## Reference runtime
 
@@ -96,14 +131,17 @@ Read the [connector capability contract](docs/connectors/CAPABILITY_MANIFEST.md)
 
 ## Public commons, private instance
 
-This repository contains public protocols, runtime code, connector contracts, documentation, schemas, and sanitized fixtures.
+This repository contains public protocols, runtime code, connector contracts, bootstrap contracts, documentation, schemas, and sanitized fixtures.
 
-A real deployment keeps private configuration and identity mappings outside this repository. Credentials belong in environment variables, an operating-system keychain, or a dedicated secret manager—**not in Git, even when the repository is private**.
+A real deployment keeps its approved bootstrap profile, private topology, configuration, and identity mappings outside this public repository. Credentials belong in environment variables, an operating-system keychain, or a dedicated secret manager—**not in Git, even when the repository is private**.
 
-Never commit tokens, private content, production payloads, unredacted logs, workspace inventories, or mappings that expose the structure of a person’s digital life.
+Never commit tokens, private content, production payloads, unredacted logs, raw history exports, workspace inventories, or mappings that expose the structure of a person’s digital life.
 
 ## Read next
 
+- [Install Your Grimoire](INSTALL.md)
+- [Bootstrap Steward](BOOTSTRAP.md)
+- [Bootstrap Protocol](docs/BOOTSTRAP_PROTOCOL.md)
 - [Manifesto](MANIFESTO.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Privacy and Trust](docs/PRIVACY.md)

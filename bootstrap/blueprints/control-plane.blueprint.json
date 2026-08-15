@@ -1,0 +1,164 @@
+{
+  "schema_version": "0.1.0",
+  "blueprint_id": "blueprint.control-plane.base",
+  "title": "Provider-neutral semantic control plane",
+  "description": "Stable semantic objects that a carrier pack maps to provider-native pages, databases, collections, or files.",
+  "reuse_policy": {
+    "search_before_create": true,
+    "identity_priority": [
+      "stable_id",
+      "canonical_url",
+      "declared_purpose",
+      "normalized_name"
+    ],
+    "on_ambiguous_match": "hold_and_surface",
+    "on_exact_match": "reuse_or_update"
+  },
+  "objects": [
+    {
+      "stable_id": "control.system-manifest",
+      "name": "System Manifest",
+      "semantic_kind": "manifest",
+      "preferred_shape": "page",
+      "required": true,
+      "purpose": "Canonical map of the instance, carrier roles, active architecture, routing rules, and lifecycle boundaries.",
+      "fields": [
+        "Stable ID",
+        "Name",
+        "Instance",
+        "Status",
+        "Canonical Home",
+        "Version",
+        "Last Gardened",
+        "Source Link"
+      ]
+    },
+    {
+      "stable_id": "control.bridge-registry",
+      "name": "Bridge Registry",
+      "semantic_kind": "registry",
+      "preferred_shape": "database",
+      "required": true,
+      "purpose": "Cross-carrier references, relationship type, authority, synchronization posture, and reconciliation state.",
+      "fields": [
+        "Stable ID",
+        "Logical Object",
+        "Source Carrier",
+        "Source Reference",
+        "Target Carrier",
+        "Target Reference",
+        "Authority",
+        "Sync Mode",
+        "Status",
+        "Last Verified"
+      ]
+    },
+    {
+      "stable_id": "control.garden-pass-history",
+      "name": "Garden Pass History",
+      "semantic_kind": "maintenance_log",
+      "preferred_shape": "database",
+      "required": true,
+      "purpose": "Durable record of reconciliation, architecture change, migration, validation, and retirement work.",
+      "fields": [
+        "Stable ID",
+        "Title",
+        "Date",
+        "Scope",
+        "Outcome",
+        "Changes",
+        "Validation",
+        "Risks",
+        "Next Boundary",
+        "Source Link"
+      ]
+    },
+    {
+      "stable_id": "control.domain-index",
+      "name": "Domain Index",
+      "semantic_kind": "domain_catalog",
+      "preferred_shape": "database",
+      "required": true,
+      "purpose": "Stable identities, purposes, classifications, lifecycle, routes, and relationships for approved durable domains.",
+      "fields": [
+        "Stable ID",
+        "Domain",
+        "Purpose",
+        "Classification",
+        "Lifecycle",
+        "Status",
+        "Canonical Routes",
+        "Review Cadence",
+        "Core Path",
+        "Related Domains"
+      ]
+    },
+    {
+      "stable_id": "control.artifact-registry",
+      "name": "Artifact Registry",
+      "semantic_kind": "artifact_catalog",
+      "preferred_shape": "database",
+      "required": false,
+      "activation_condition": "The approved profile contains reusable prompts, skills, macros, code, schemas, templates, or other versioned artifacts that benefit from semantic discovery.",
+      "purpose": "Semantic catalog pointing to canonical versioned artifacts without duplicating their complete source.",
+      "fields": [
+        "Stable ID",
+        "Artifact",
+        "Artifact Type",
+        "Domain",
+        "Classification",
+        "Lifecycle",
+        "Canonical URL",
+        "Version",
+        "Aliases",
+        "Status",
+        "Last Reviewed"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "from": "control.bridge-registry",
+      "to": "control.domain-index",
+      "purpose": "Associate bridges with the domain they serve."
+    },
+    {
+      "from": "control.garden-pass-history",
+      "to": "control.domain-index",
+      "purpose": "Record which domains were affected by maintenance."
+    },
+    {
+      "from": "control.artifact-registry",
+      "to": "control.domain-index",
+      "purpose": "Group reusable artifacts by durable domain."
+    }
+  ],
+  "recommended_views": [
+    {
+      "name": "Needs Attention",
+      "object": "control.bridge-registry",
+      "filter": "Status is Conflict, Stale, Missing, or Review"
+    },
+    {
+      "name": "Recent Garden Passes",
+      "object": "control.garden-pass-history",
+      "sort": "Date descending"
+    },
+    {
+      "name": "Active Domains",
+      "object": "control.domain-index",
+      "filter": "Status is Active"
+    },
+    {
+      "name": "Artifacts Due for Review",
+      "object": "control.artifact-registry",
+      "filter": "Status is Review or Last Reviewed is overdue"
+    }
+  ],
+  "rules": [
+    "Stable IDs survive provider replacement.",
+    "Relations are preferred over deep folder nesting.",
+    "Versioned source remains in the versioned-artifact carrier; the control plane stores summaries and references.",
+    "Exact existing matches are reused; ambiguous matches are never silently merged."
+  ]
+}
