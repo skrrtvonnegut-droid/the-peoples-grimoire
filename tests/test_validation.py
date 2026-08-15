@@ -9,7 +9,6 @@ from jsonschema import Draft202012Validator
 
 from peoples_grimoire.validation import validate_document, validate_path
 
-
 REPO_ROOT = Path(__file__).resolve().parents[1]
 EXAMPLE_ROOT = REPO_ROOT / "examples" / "manifests"
 SCHEMA_ROOT = REPO_ROOT / "schemas"

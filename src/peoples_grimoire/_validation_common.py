@@ -12,7 +12,6 @@ from typing import Any
 
 import yaml
 
-
 SCHEMA_BY_KIND = {
     "grimoire.artifact": "grimoire-artifact.schema.json",
     "grimoire.connector": "grimoire-connector.schema.json",
