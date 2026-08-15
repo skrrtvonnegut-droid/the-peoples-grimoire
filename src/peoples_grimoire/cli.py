@@ -3,9 +3,9 @@
 from __future__ import annotations
 
 import argparse
+import json
 from collections.abc import Sequence
 from datetime import UTC, datetime
-import json
 
 from .connectors.memory import RecordingConnector
 from .engine import GrimoireEngine
