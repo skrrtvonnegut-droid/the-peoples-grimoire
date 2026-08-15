@@ -1,0 +1,185 @@
+{
+  "schema_version": "0.1.0",
+  "plan_id": "boot_0123456789abcdef01234567",
+  "profile_digest": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+  "created_at": "2026-08-15T17:45:00Z",
+  "status": "proposed",
+  "mode": "connected",
+  "decision_summary": "Create a private GitHub core from the invariant blueprint, generate three approved domain paths, and create a Notion control plane after searching for reusable canonical objects.",
+  "assumptions": [
+    "The example GitHub account permits private repository creation.",
+    "No exact System Manifest or Bridge Registry match exists in the selected Notion roots.",
+    "The synthetic profile contains no Employer Confidential material or secrets."
+  ],
+  "private_core": {
+    "provider_role": "versioned_artifacts",
+    "provider": "github",
+    "blueprint": "bootstrap/blueprints/private-core.blueprint.json",
+    "target": {
+      "disposition": "create",
+      "owner": "example-operator",
+      "repository": "example-grimoire-core",
+      "visibility": "private"
+    },
+    "generated_paths": [
+      "domains/technical-practice/",
+      "domains/learning-lab/",
+      "domains/creative-practice/",
+      "carriers/cognition/example-chatbot/",
+      "carriers/semantic_memory/notion/",
+      "carriers/versioned_artifacts/github/",
+      "carriers/secret_store/operator-managed/"
+    ]
+  },
+  "control_plane": {
+    "provider_role": "semantic_memory",
+    "provider": "notion",
+    "blueprint": "bootstrap/blueprints/control-plane.blueprint.json",
+    "root": {
+      "stable_id": "control.root",
+      "name": "🜁 The Grimoire",
+      "disposition": "create",
+      "reason": "No exact control-plane root was found in the approved Notion scope.",
+      "reference": null
+    },
+    "objects": [
+      {
+        "stable_id": "control.system-manifest",
+        "name": "System Manifest",
+        "disposition": "create",
+        "reason": "No exact stable-ID or declared-purpose match was found.",
+        "reference": null
+      },
+      {
+        "stable_id": "control.bridge-registry",
+        "name": "Bridge Registry",
+        "disposition": "create",
+        "reason": "Cross-carrier references require a canonical registry.",
+        "reference": null
+      },
+      {
+        "stable_id": "control.garden-pass-history",
+        "name": "Garden Pass History",
+        "disposition": "create",
+        "reason": "Installation and future reconciliation require durable provenance.",
+        "reference": null
+      },
+      {
+        "stable_id": "control.domain-index",
+        "name": "Domain Index",
+        "disposition": "create",
+        "reason": "The approved topology needs stable identities and routes.",
+        "reference": null
+      },
+      {
+        "stable_id": "control.artifact-registry",
+        "name": "Artifact Registry",
+        "disposition": "create",
+        "reason": "The profile contains reusable versioned artifacts that benefit from semantic discovery.",
+        "reference": null
+      }
+    ]
+  },
+  "actions": [
+    {
+      "action_id": "act_111111111111111111111111",
+      "provider_role": "versioned_artifacts",
+      "provider": "github",
+      "operation": "create",
+      "target": "example-operator/example-grimoire-core",
+      "classification": "personal_private",
+      "reversibility": "reversible",
+      "requires_approval": true,
+      "approval_state": "pending",
+      "reason": "Create the approved private, secret-free core.",
+      "depends_on": []
+    },
+    {
+      "action_id": "act_222222222222222222222222",
+      "provider_role": "versioned_artifacts",
+      "provider": "github",
+      "operation": "update",
+      "target": "example-operator/example-grimoire-core initial scaffold",
+      "classification": "personal_private",
+      "reversibility": "reversible",
+      "requires_approval": true,
+      "approval_state": "pending",
+      "reason": "Materialize the invariant blueprint, approved profile, routes, and domain paths.",
+      "depends_on": ["act_111111111111111111111111"]
+    },
+    {
+      "action_id": "act_333333333333333333333333",
+      "provider_role": "semantic_memory",
+      "provider": "notion",
+      "operation": "create",
+      "target": "🜁 The Grimoire control plane",
+      "classification": "personal_private",
+      "reversibility": "reversible",
+      "requires_approval": true,
+      "approval_state": "pending",
+      "reason": "Create missing semantic control objects after exact-match search.",
+      "depends_on": []
+    },
+    {
+      "action_id": "act_444444444444444444444444",
+      "provider_role": "semantic_memory",
+      "provider": "notion",
+      "operation": "link",
+      "target": "Bridge Registry records for the private core and control plane",
+      "classification": "personal_private",
+      "reversibility": "reversible",
+      "requires_approval": true,
+      "approval_state": "pending",
+      "reason": "Make relationships discoverable without duplicating canonical content.",
+      "depends_on": ["act_222222222222222222222222", "act_333333333333333333333333"]
+    }
+  ],
+  "data_movements": [
+    {
+      "source_role": "cognition",
+      "target_role": "versioned_artifacts",
+      "data_class": "personal_private",
+      "content_depth": "summary",
+      "purpose": "Persist the approved topology and bootstrap receipt without raw chat history.",
+      "retention": "durable"
+    },
+    {
+      "source_role": "cognition",
+      "target_role": "semantic_memory",
+      "data_class": "personal_private",
+      "content_depth": "summary",
+      "purpose": "Create domain and control-plane records from the approved profile.",
+      "retention": "durable"
+    }
+  ],
+  "verification": [
+    {
+      "step_id": "verify.repo-private",
+      "description": "Inspect repository metadata after creation.",
+      "expected_result": "The private core visibility is private."
+    },
+    {
+      "step_id": "verify.no-secrets",
+      "description": "Scan the initial diff for secret-shaped values and forbidden paths.",
+      "expected_result": "No secret-shaped value or forbidden path is present."
+    },
+    {
+      "step_id": "verify.synthetic-route",
+      "description": "Route one synthetic capture through the declared lifecycle.",
+      "expected_result": "The item reaches the expected carrier and replay creates no duplicate."
+    }
+  ],
+  "rollback": [
+    {
+      "step_id": "rollback.notion",
+      "description": "Remove only control-plane objects created by this plan after exporting their stable IDs.",
+      "expected_result": "Pre-existing Notion content remains untouched."
+    },
+    {
+      "step_id": "rollback.github",
+      "description": "Delete the newly created private core or revert the bootstrap commit.",
+      "expected_result": "No generated core object remains unless the operator retains it."
+    }
+  ],
+  "unresolved_questions": []
+}

@@ -1,0 +1,185 @@
+{
+  "schema_version": "0.1.0",
+  "instance": {
+    "name": "Example Living Grimoire",
+    "slug": "example-living-grimoire",
+    "deployment_context": "personal",
+    "operator_label": "Example Operator",
+    "classification_boundary": {
+      "allowed": ["public", "personal_private", "professional_portfolio"],
+      "excluded": ["employer_confidential", "secrets"]
+    }
+  },
+  "carriers": {
+    "cognition": {
+      "role": "cognition",
+      "provider": "example-chatbot",
+      "interface": "host_native",
+      "connection_state": "available",
+      "capabilities": ["search", "read", "approve"],
+      "scope_summary": "Operator-approved conversation projects and uploaded files."
+    },
+    "semantic_memory": {
+      "role": "semantic_memory",
+      "provider": "notion",
+      "interface": "chatbot_ui",
+      "connection_state": "available",
+      "capabilities": ["search", "read", "create", "update", "link", "export", "delete"],
+      "scope_summary": "Operator-selected Notion roots."
+    },
+    "versioned_artifacts": {
+      "role": "versioned_artifacts",
+      "provider": "github",
+      "interface": "chatbot_ui",
+      "connection_state": "available",
+      "capabilities": ["search", "read", "create", "update", "link", "export", "delete"],
+      "scope_summary": "Example Operator personal GitHub account."
+    },
+    "secret_store": {
+      "role": "secret_store",
+      "provider": "operator-managed",
+      "interface": "outside_chat",
+      "connection_state": "manual",
+      "capabilities": ["store_secret", "rotate_secret", "revoke_secret"],
+      "scope_summary": "Credentials remain outside chat and Git."
+    }
+  },
+  "discovery": {
+    "approved_at": "2026-08-15T17:30:00Z",
+    "sources": [
+      {
+        "source_id": "chat.selected-projects",
+        "kind": "chat_history",
+        "provider": "example-chatbot",
+        "scope_summary": "Selected project conversations from the previous twelve months.",
+        "content_policy": "summaries_only",
+        "approved": true
+      },
+      {
+        "source_id": "notion.selected-roots",
+        "kind": "notebook",
+        "provider": "notion",
+        "scope_summary": "Selected personal knowledge roots; schemas and titles first.",
+        "content_policy": "metadata_only",
+        "approved": true
+      },
+      {
+        "source_id": "github.selected-repositories",
+        "kind": "version_control",
+        "provider": "github",
+        "scope_summary": "Selected personal repositories; names, descriptions, and file trees.",
+        "content_policy": "metadata_only",
+        "approved": true
+      }
+    ],
+    "raw_inventory_retention": "ephemeral",
+    "excluded_subjects": ["Employer systems and client material", "Credentials and authentication records"]
+  },
+  "domains": [
+    {
+      "stable_id": "domain.technical-practice",
+      "name": "Technical Practice",
+      "slug": "technical-practice",
+      "purpose": "Develop reusable technical knowledge, automation, architecture, and operating practices.",
+      "classification": "professional_portfolio",
+      "confidence": 0.94,
+      "evidence": {
+        "source_count": 18,
+        "signal_labels": ["automation", "architecture", "documentation", "systems-administration"],
+        "summary": "Recurring technical learning, reusable code, governance documents, and systems-design work appeared across approved sources."
+      },
+      "artifact_routes": [
+        {
+          "artifact_type": "knowledge_article",
+          "lifecycle": "distill",
+          "canonical_role": "semantic_memory",
+          "reference_roles": ["cognition", "versioned_artifacts"],
+          "reason": "Living explanatory knowledge belongs in semantic memory; reusable source can be referenced in version control."
+        },
+        {
+          "artifact_type": "automation_code",
+          "lifecycle": "version",
+          "canonical_role": "versioned_artifacts",
+          "reference_roles": ["semantic_memory"],
+          "reason": "Executable code requires history, review, and diffable change."
+        }
+      ],
+      "review_cadence": "monthly",
+      "related_domains": ["domain.learning-lab"]
+    },
+    {
+      "stable_id": "domain.learning-lab",
+      "name": "Learning Lab",
+      "slug": "learning-lab",
+      "purpose": "Turn exploratory conversations and notes into structured learning paths and durable understanding.",
+      "classification": "personal_private",
+      "confidence": 0.88,
+      "evidence": {
+        "source_count": 12,
+        "signal_labels": ["study-notes", "guided-practice", "questions", "reference-guides"],
+        "summary": "Conversation repeatedly functions as a learning space that sometimes produces durable notes or reusable labs."
+      },
+      "artifact_routes": [
+        {
+          "artifact_type": "exploration_chat",
+          "lifecycle": "ephemeral",
+          "canonical_role": "none",
+          "reference_roles": ["cognition"],
+          "reason": "Exploration remains conversational unless it produces a durable insight or artifact."
+        },
+        {
+          "artifact_type": "study_note",
+          "lifecycle": "distill",
+          "canonical_role": "semantic_memory",
+          "reference_roles": ["cognition"],
+          "reason": "Living notes benefit from semantic relationships and iterative refinement."
+        },
+        {
+          "artifact_type": "reusable_lab",
+          "lifecycle": "version",
+          "canonical_role": "versioned_artifacts",
+          "reference_roles": ["semantic_memory"],
+          "reason": "Reusable exercises, scripts, and curricula need version history."
+        }
+      ],
+      "review_cadence": "quarterly",
+      "related_domains": ["domain.technical-practice", "domain.creative-practice"]
+    },
+    {
+      "stable_id": "domain.creative-practice",
+      "name": "Creative Practice",
+      "slug": "creative-practice",
+      "purpose": "Develop reflective writing and stories without turning every conversation into an archive.",
+      "classification": "personal_private",
+      "confidence": 0.91,
+      "evidence": {
+        "source_count": 15,
+        "signal_labels": ["journaling", "fiction", "reflection", "voice-preservation"],
+        "summary": "Repeated journal work and iterative story development form a durable creative practice with distinct lifecycle rules."
+      },
+      "artifact_routes": [
+        {
+          "artifact_type": "daily_reflection",
+          "lifecycle": "distill",
+          "canonical_role": "semantic_memory",
+          "reference_roles": ["cognition"],
+          "reason": "Selected reflection belongs in living semantic memory rather than raw chat archives."
+        },
+        {
+          "artifact_type": "finished_story",
+          "lifecycle": "both",
+          "canonical_role": "versioned_artifacts",
+          "reference_roles": ["semantic_memory"],
+          "reason": "Finished text benefits from version history while themes and relationships remain discoverable."
+        }
+      ],
+      "review_cadence": "quarterly",
+      "related_domains": ["domain.learning-lab"]
+    }
+  ],
+  "preferences": {
+    "private_core_repository": "example-grimoire-core",
+    "control_plane_title": "🜁 The Grimoire",
+    "preserve_existing_structure": true
+  }
+}

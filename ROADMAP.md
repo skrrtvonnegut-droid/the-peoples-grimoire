@@ -17,8 +17,34 @@ The roadmap translates the [Manifesto](MANIFESTO.md) into capability. It is capa
 - [x] Sanitized configuration and recipe examples.
 - [x] Connector capability manifest and protocol contract.
 - [x] Deny-by-default structured observability.
+- [x] Conversational bootstrap protocol.
+- [x] Provider-neutral private-core and control-plane blueprints.
+- [x] Notion and GitHub starter carrier pack.
+- [x] Bootstrap profile and plan schemas with synthetic validation fixtures.
 - [ ] Durable issue backlog and connector research notes.
 - [ ] License, dependency, and supply-chain review.
+
+## Bootstrap track — Guided genesis
+
+**Goal:** let a new operator create a private core and semantic control plane through a chatbot without surrendering the result to that chatbot or accepting a generic second-brain template.
+
+- [x] Single-file chatbot entrypoint and human installation guide.
+- [x] Readiness, consent, discovery, topology, plan, approval, apply, verification, and handoff state model.
+- [x] Metadata-first, source-scoped history discovery rules.
+- [x] Invariant private-core skeleton with history-derived domain paths.
+- [x] Provider-neutral control-plane object model.
+- [x] Portable carrier roles and Notion/GitHub binding.
+- [x] Connected, hybrid, and portable-plan degraded modes.
+- [ ] Runtime validation for bootstrap profiles and plans.
+- [ ] Deterministic scaffold generator with dry-run and apply separation.
+- [ ] Resumable checkpoints and plan invalidation on target drift.
+- [ ] Chat-history and notebook discovery adapters where host APIs permit them.
+- [ ] Approval-gated private GitHub core provisioning.
+- [ ] Approval-gated Notion control-plane reconciliation and provisioning.
+- [ ] Export, migration, disconnect, and complete deletion receipts.
+- [ ] Carrier-pack conformance tests and an alternate-provider fixture.
+
+**Release gate:** a new operator can bring the public kit to a compatible chatbot, approve a bounded discovery scope, review a history-shaped topology, create or reuse a private core and control plane through specific approvals, verify the result, and move the portable profile and plan to another host without repeating discovery.
 
 ## v0.1 — Readable memory
 
@@ -53,9 +79,9 @@ The roadmap translates the [Manifesto](MANIFESTO.md) into capability. It is capa
 
 **Release gate:** no production write occurs without an inspectable plan, explicit authority rule, approval evidence, and audit record.
 
-## v0.3 — Connector kit
+## v0.3 — Connector and carrier kit
 
-**Goal:** make a third connector possible without changing the core.
+**Goal:** make a third connector or replacement carrier possible without changing the core or the operator’s domain model.
 
 - [x] Versioned connector protocol.
 - [x] Capability manifest tooling.
@@ -64,9 +90,11 @@ The roadmap translates the [Manifesto](MANIFESTO.md) into capability. It is capa
 - [ ] Permission and data-class documentation template.
 - [ ] Connector development CLI.
 - [ ] Reference connector package structure.
+- [ ] Carrier-pack schema and conformance harness.
+- [ ] Stable-identity migration receipt between two semantic-memory carriers.
 - [x] Compatibility policy.
 
-**Release gate:** an independent contributor can build and test a read-only connector from public documentation.
+**Release gate:** an independent contributor can build and test a read-only connector or carrier binding from public documentation, and an operator can replace one carrier without reconstructing their domain topology.
 
 ## v0.4 — Composable recipes
 
@@ -95,7 +123,9 @@ The roadmap translates the [Manifesto](MANIFESTO.md) into capability. It is capa
 ## Later horizons
 
 - Additional connectors selected through community demand and maintainer capacity.
-- Community-governed connector and recipe commons.
+- Swappable semantic-memory carriers such as local notebooks, knowledge graphs, or federated stores.
+- Swappable versioned-artifact carriers such as GitLab, Forgejo, or local Git.
+- Community-governed connector, carrier-pack, and recipe commons.
 - Cooperative hosting patterns that do not create a new platform landlord.
 - Labor-saving automation evaluated by time returned, not activity extracted.
 - Team roles and multi-operator approval.
@@ -113,6 +143,7 @@ Every phase includes:
 - threat-model updates;
 - least-privilege documentation;
 - user-agency and anti-capture review;
+- bootstrap portability and host-capability detection;
 - synthetic fixtures;
 - replay and idempotency tests;
 - export and deletion behavior;
@@ -125,6 +156,7 @@ The project will not prioritize the following before the trust model is proven:
 
 - a hosted multi-tenant SaaS product;
 - broad organization-wide indexing;
+- unbounded chat-history or notebook ingestion;
 - automatic destructive actions;
 - opaque autonomous agents;
 - full-content replication;

@@ -1,0 +1,115 @@
+{
+  "schema_version": "0.1.0",
+  "blueprint_id": "blueprint.private-core.base",
+  "title": "Provider-neutral private core",
+  "description": "Invariant, secret-free governance skeleton with domain and carrier paths generated from an approved bootstrap profile.",
+  "invariants": [
+    {
+      "path": "README.md",
+      "kind": "file",
+      "purpose": "Operator landing page, instance purpose, boundaries, and administration map."
+    },
+    {
+      "path": "architecture/",
+      "kind": "directory",
+      "purpose": "System map, source-of-truth decisions, lifecycle, and ADR references."
+    },
+    {
+      "path": "policies/",
+      "kind": "directory",
+      "purpose": "Data membrane, consent, retention, routing, publication, and deletion rules."
+    },
+    {
+      "path": "manifests/",
+      "kind": "directory",
+      "purpose": "System, carrier, domain-topology, and instance manifests."
+    },
+    {
+      "path": "registry/",
+      "kind": "directory",
+      "purpose": "Bridge, artifact, alias, and stable-identity registries."
+    },
+    {
+      "path": "carriers/",
+      "kind": "directory",
+      "purpose": "Provider bindings nested beneath abstract carrier roles."
+    },
+    {
+      "path": "domains/",
+      "kind": "directory",
+      "purpose": "History-derived durable domains. Empty until generated from the approved profile."
+    },
+    {
+      "path": "workflows/",
+      "kind": "directory",
+      "purpose": "Repeatable transformations, reviews, and operational routines."
+    },
+    {
+      "path": "automation/",
+      "kind": "directory",
+      "purpose": "Secret-free automation code and configuration."
+    },
+    {
+      "path": "prompts/",
+      "kind": "directory",
+      "purpose": "Private prompt overlays, macros, skills, and reusable language artifacts."
+    },
+    {
+      "path": "control-plane/",
+      "kind": "directory",
+      "purpose": "Versioned definitions and mappings for the semantic control plane, not copied page bodies."
+    },
+    {
+      "path": "records/garden-passes/",
+      "kind": "directory",
+      "purpose": "Architecture, reconciliation, migration, and maintenance history."
+    },
+    {
+      "path": "archive/",
+      "kind": "directory",
+      "purpose": "Superseded or retired durable representations with provenance."
+    }
+  ],
+  "generated_paths": [
+    {
+      "path_pattern": "domains/{domain.slug}/",
+      "source": "profile.domains[]",
+      "purpose": "One directory per approved durable domain, containing purpose, routes, workflows, and references rather than raw source exports."
+    },
+    {
+      "path_pattern": "carriers/{carrier.role}/{carrier.provider}/",
+      "source": "profile.carriers",
+      "purpose": "Provider-specific bindings isolated beneath stable semantic roles."
+    }
+  ],
+  "required_manifests": [
+    "manifests/system.json",
+    "manifests/bootstrap-profile.json",
+    "manifests/domain-topology.json",
+    "manifests/carriers.json"
+  ],
+  "required_registry_seeds": [
+    "registry/bridge-registry.json",
+    "registry/artifact-registry.json"
+  ],
+  "default_forbidden_content_classes": [
+    "employer_confidential",
+    "secrets"
+  ],
+  "forbidden_paths": [
+    ".env",
+    "credentials/",
+    "secrets/",
+    "imports/raw/",
+    "**/*.pem",
+    "**/*.key",
+    "**/*token*"
+  ],
+  "rules": [
+    "No provider name becomes a top-level domain solely because it is a provider.",
+    "No raw chat or notebook archive is committed by default.",
+    "Living semantic content is referenced at its canonical carrier rather than duplicated.",
+    "Every generated domain documents artifact routes and canonical roles.",
+    "The core remains secret-free even when the repository is private."
+  ]
+}

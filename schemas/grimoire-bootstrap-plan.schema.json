@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:peoples-grimoire:schema:bootstrap-plan:0.1.0",
+  "title": "Grimoire Bootstrap Plan",
+  "description": "An inspectable, approval-gated plan for creating or reconciling a private core and semantic control plane.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "plan_id", "profile_digest", "created_at", "status", "mode", "decision_summary", "private_core", "control_plane", "actions", "data_movements", "verification", "rollback"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "plan_id": {"type": "string", "pattern": "^boot_[a-f0-9]{24}$"},
+    "profile_digest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "status": {"enum": ["proposed", "partially_approved", "approved", "applied", "verified", "blocked"]},
+    "mode": {"enum": ["connected", "hybrid", "portable_plan"]},
+    "decision_summary": {"type": "string", "minLength": 1, "maxLength": 1200},
+    "assumptions": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "private_core": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider_role", "provider", "blueprint", "target", "generated_paths"],
+      "properties": {
+        "provider_role": {"const": "versioned_artifacts"},
+        "provider": {"type": "string", "minLength": 1},
+        "blueprint": {"type": "string", "minLength": 1},
+        "target": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["disposition", "owner", "repository", "visibility"],
+          "properties": {
+            "disposition": {"enum": ["reuse", "create", "update"]},
+            "owner": {"type": "string", "minLength": 1},
+            "repository": {"type": "string", "minLength": 1},
+            "visibility": {"const": "private"}
+          }
+        },
+        "generated_paths": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^[^/].*/$"}}
+      }
+    },
+    "control_plane": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider_role", "provider", "blueprint", "root", "objects"],
+      "properties": {
+        "provider_role": {"const": "semantic_memory"},
+        "provider": {"type": "string", "minLength": 1},
+        "blueprint": {"type": "string", "minLength": 1},
+        "root": {"$ref": "#/$defs/objectDecision"},
+        "objects": {"type": "array", "minItems": 4, "items": {"$ref": "#/$defs/objectDecision"}}
+      }
+    },
+    "actions": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/action"}},
+    "data_movements": {"type": "array", "items": {"$ref": "#/$defs/movement"}},
+    "verification": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/check"}},
+    "rollback": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/check"}},
+    "unresolved_questions": {"type": "array", "items": {"type": "string", "minLength": 1}}
+  },
+  "$defs": {
+    "objectDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stable_id", "name", "disposition", "reason"],
+      "properties": {
+        "stable_id": {"type": "string", "minLength": 1},
+        "name": {"type": "string", "minLength": 1},
+        "disposition": {"enum": ["reuse", "create", "update", "link", "skip", "hold"]},
+        "reason": {"type": "string", "minLength": 1, "maxLength": 500},
+        "reference": {"type": ["string", "null"]}
+      }
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["action_id", "provider_role", "provider", "operation", "target", "classification", "reversibility", "requires_approval", "approval_state", "reason", "depends_on"],
+      "properties": {
+        "action_id": {"type": "string", "pattern": "^act_[a-f0-9]{24}$"},
+        "provider_role": {"enum": ["semantic_memory", "versioned_artifacts"]},
+        "provider": {"type": "string", "minLength": 1},
+        "operation": {"enum": ["reuse", "create", "update", "link", "archive", "delete"]},
+        "target": {"type": "string", "minLength": 1, "maxLength": 500},
+        "classification": {"enum": ["public", "personal_private", "professional_portfolio"]},
+        "reversibility": {"enum": ["reversible", "compensatable", "manual_repair", "irreversible"]},
+        "requires_approval": {"const": true},
+        "approval_state": {"enum": ["pending", "approved", "rejected", "expired"]},
+        "reason": {"type": "string", "minLength": 1, "maxLength": 500},
+        "depends_on": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^act_[a-f0-9]{24}$"}}
+      }
+    },
+    "movement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_role", "target_role", "data_class", "content_depth", "purpose", "retention"],
+      "properties": {
+        "source_role": {"enum": ["cognition", "semantic_memory", "versioned_artifacts"]},
+        "target_role": {"enum": ["semantic_memory", "versioned_artifacts"]},
+        "data_class": {"enum": ["public", "personal_private", "professional_portfolio"]},
+        "content_depth": {"enum": ["metadata", "summary", "reference_only", "selected_content"]},
+        "purpose": {"type": "string", "minLength": 1, "maxLength": 500},
+        "retention": {"enum": ["ephemeral", "durable", "source_retained_only"]}
+      }
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["step_id", "description", "expected_result"],
+      "properties": {
+        "step_id": {"type": "string", "minLength": 1},
+        "description": {"type": "string", "minLength": 1},
+        "expected_result": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

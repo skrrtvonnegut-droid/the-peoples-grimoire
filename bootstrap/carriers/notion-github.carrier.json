@@ -1,0 +1,100 @@
+{
+  "schema_version": "0.1.0",
+  "carrier_pack_id": "carrier-pack.notion-github.0.1.0",
+  "title": "Notion and GitHub starter carrier pack",
+  "description": "Default binding for a chatbot-guided Grimoire installation. Notion carries semantic memory and the control plane; GitHub carries the private versioned core.",
+  "roles": {
+    "cognition": {
+      "provider": "current_chatbot",
+      "canonical": false,
+      "connection_method": "host_native",
+      "required_capabilities": [
+        "read_uploaded_or_connected_files",
+        "guided_dialogue",
+        "structured_output"
+      ],
+      "optional_capabilities": [
+        "search_chat_history",
+        "search_file_library",
+        "invoke_connected_tools"
+      ],
+      "constraints": [
+        "Do not rely on proprietary model memory as the only durable copy.",
+        "Do not claim access that the host has not exposed."
+      ]
+    },
+    "semantic_memory": {
+      "provider": "notion",
+      "canonical": true,
+      "connection_method": "chatbot_ui",
+      "blueprint": "../blueprints/control-plane.blueprint.json",
+      "required_capabilities": [
+        "search_pages",
+        "read_pages",
+        "search_databases",
+        "read_database_schema"
+      ],
+      "write_capabilities": [
+        "create_page",
+        "update_page",
+        "create_database",
+        "update_database_schema",
+        "create_database_item"
+      ],
+      "initial_scope": "operator_selected_roots",
+      "write_default": "approval_required",
+      "degraded_mode": "emit_notion_build_work_order"
+    },
+    "versioned_artifacts": {
+      "provider": "github",
+      "canonical": true,
+      "connection_method": "chatbot_ui",
+      "blueprint": "../blueprints/private-core.blueprint.json",
+      "required_capabilities": [
+        "search_repositories",
+        "read_repository_metadata",
+        "read_files"
+      ],
+      "write_capabilities": [
+        "create_private_repository",
+        "create_branch",
+        "create_or_update_files",
+        "open_pull_request",
+        "merge_pull_request"
+      ],
+      "initial_scope": "operator_selected_account_or_organization",
+      "repository_visibility": "private",
+      "write_default": "approval_required",
+      "degraded_mode": "emit_private_core_files_and_git_work_order"
+    },
+    "secret_store": {
+      "provider": "operator_managed",
+      "canonical": true,
+      "connection_method": "outside_chat",
+      "required_capabilities": [
+        "store_secret",
+        "revoke_secret",
+        "rotate_secret"
+      ],
+      "constraints": [
+        "No secret value may appear in a bootstrap profile, plan, repository, issue, log, or conversation."
+      ]
+    }
+  },
+  "authorization_policy": {
+    "use_host_managed_connections": true,
+    "collect_credentials_in_chat": false,
+    "begin_read_only": true,
+    "specific_write_approval": true,
+    "recheck_after_connection": true
+  },
+  "portable_artifacts": [
+    "bootstrap profile",
+    "bootstrap plan",
+    "private-core blueprint",
+    "control-plane blueprint",
+    "apply receipt",
+    "Garden Pass"
+  ],
+  "provider_swap_rule": "Replace a role binding and migrate stable identities; do not rebuild the domain topology merely because the carrier changes."
+}
