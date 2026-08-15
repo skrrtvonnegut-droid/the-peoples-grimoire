@@ -8,7 +8,7 @@ The People’s Grimoire is the first step toward **fully automated luxury gay sp
 
 **Not a meme. A mantra.**
 
-The project is also a **bodhisattva vow expressed through infrastructure**, offered in the spirit of Mother Green Tara. Its measure is not power for its own sake, but whether ordinary people become less powerless. Read the [founding vow](MANIFESTO.md#founding-vow).
+The project is also a **bodhisattva vow expressed through infrastructure**, grounded in active compassion. Its measure is not power for its own sake, but whether ordinary people become less powerless. Read the [founding vow](MANIFESTO.md#founding-vow).
 
 In practical terms, that means reclaiming interoperability and automation as public capabilities: reducing drudgery, resisting platform capture, returning time and authority to people, and building digital infrastructure that can be inspected, adapted, hosted, and governed by the communities it serves. Read the [Manifesto](MANIFESTO.md).
 
