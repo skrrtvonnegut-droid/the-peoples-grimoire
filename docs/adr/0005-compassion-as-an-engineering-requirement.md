@@ -5,7 +5,7 @@
 
 ## Context
 
-The Manifesto names liberation as the project’s horizon, and the founding vow offers the work in the spirit of Mother Green Tara. Without a durable technical interpretation, compassion could remain ceremonial language while ordinary engineering incentives continue to optimize throughput, adoption, or institutional convenience at someone else’s expense.
+The Manifesto names liberation as the project’s horizon, and the founding vow names active compassion as its ethical center. Without a durable technical interpretation, compassion could remain ceremonial language while ordinary engineering incentives continue to optimize throughput, adoption, or institutional convenience at someone else’s expense.
 
 Compassion cannot be reduced to a metric, and it cannot mean paternalistically deciding what is best for other people. The project still needs a repeatable way to ask whether a technically successful change reduces suffering, expands agency, and avoids transferring hidden costs onto people with less power.
 
@@ -23,7 +23,7 @@ For consequential changes, design and review must:
 6. Preserve human authority over consequential actions and make uncertainty, conflict, and provenance inspectable.
 7. Seek evidence and affected-user input as the project develops; no maintainer, institution, or AI system may define another person’s good solely on their behalf.
 
-The Green Tara dedication is a founding spiritual orientation, not a religious test. Contributors do not need to share its cosmology or practice. Participation requires respect for the material obligation it names: compassion must move from intention into concrete safeguards, shared power, and useful aid.
+The founding vow is a spiritual and ethical orientation, not a religious test. Contributors do not need to share any particular cosmology or practice. Participation requires respect for the material obligation it names: compassion must move from intention into concrete safeguards, shared power, and useful aid.
 
 This decision is implemented through the Manifesto, Governance, contribution requirements, architecture review, connector contracts, recipe design, and future acceptance criteria.
 
@@ -37,7 +37,7 @@ Rejected. A vow that does not alter engineering decisions becomes branding.
 
 Rejected. This would make the project more conventionally neutral by erasing part of its actual founding meaning. The project can remain plural without pretending it was born without commitments.
 
-### Require contributors to affirm a Buddhist framework
+### Require contributors to affirm a shared spiritual framework
 
 Rejected. Doctrinal conformity would contradict the project’s plural, commons-oriented architecture and turn an invitation to compassion into a gatekeeping mechanism.
 
