@@ -159,7 +159,3 @@ Never commit tokens, private content, production payloads, unredacted logs, raw 
 11. **No liberation may depend on another person’s disposability.**
 
 The People’s Grimoire is licensed under the [Apache License 2.0](LICENSE).
-
-**Tech workers of the world, unite.**
-
-**May all beings be liberated from the suffering of late-stage techno-dystopian capitalism.**
