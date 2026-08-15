@@ -1,6 +1,8 @@
 # Contributing
 
-Thank you for helping build connective tissue rather than another silo.
+Thank you for helping build connective tissue rather than another silo—and infrastructure for liberation rather than extraction.
+
+Before contributing, read the [Manifesto](MANIFESTO.md). The project’s politics become engineering requirements: user sovereignty, anti-capture design, inspectable automation, meaningful exit, and respect for the people whose work or data a system touches.
 
 The project is pre-alpha. Small, inspectable contributions are more useful than broad rewrites.
 
@@ -13,6 +15,7 @@ For a new connector, recipe, schema change, or architectural change, open an iss
 - the external permissions required;
 - the data classes involved;
 - the proposed source-of-truth rules;
+- who gains authority or saved labor, who bears risk, and whether the design increases platform dependence;
 - failure and conflict behavior; and
 - how the change can be tested with synthetic data.
 
@@ -65,6 +68,8 @@ Prefer small commits with messages that describe the outcome.
 - [ ] Logging does not expose content or secrets.
 - [ ] Writes remain behind plan/apply and approval boundaries.
 - [ ] Replay and idempotency behavior has been considered.
+- [ ] The change increases user agency or clearly documents the trade-off.
+- [ ] The design does not introduce unnecessary surveillance, coercive automation, or platform dependence.
 - [ ] Documentation and schemas are updated.
 - [ ] Material AI assistance is disclosed.
 - [ ] The contributor has reviewed the full diff.

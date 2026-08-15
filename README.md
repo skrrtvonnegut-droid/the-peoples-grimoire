@@ -1,6 +1,14 @@
 # The People’s Grimoire
 
+> **Automating the means of production since 2026.**
+>
 > A user-owned connective tissue for the tools where we work, think, build, and remember.
+
+The People’s Grimoire is the first step toward **fully automated luxury gay space communism**.
+
+**Not a meme. A mantra.**
+
+In practical terms, that means reclaiming interoperability and automation as public capabilities: reducing drudgery, resisting platform capture, returning time and authority to people, and building digital infrastructure that can be inspected, adapted, hosted, and governed by the communities it serves. Read the [Manifesto](MANIFESTO.md).
 
 Most SaaS applications are excellent organs and terrible organisms. Each holds a fragment of our work and memory, but they rarely understand one another without brittle automations, duplicated data, and another platform demanding custody of everything.
 
@@ -18,6 +26,7 @@ Most SaaS applications are excellent organs and terrible organisms. Each holds a
 - **Policy-governed:** every proposed synchronization can be filtered, approved, reversed, or refused.
 - **Human-accountable:** AI may interpret, draft, and coordinate, but people retain authority over consequential actions.
 - **Plural by design:** unity comes from shared language and relationships, not from flattening every tool into the same shape.
+- **Commons-oriented:** reusable protocols and coordination patterns should circulate instead of becoming another layer of rent.
 
 ## The organism
 
@@ -93,6 +102,7 @@ Never commit tokens, private content, production payloads, unredacted logs, work
 
 ## Read next
 
+- [Manifesto](MANIFESTO.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Privacy and Trust](docs/PRIVACY.md)
 - [Connector Capability Manifest](docs/connectors/CAPABILITY_MANIFEST.md)
@@ -106,10 +116,16 @@ Never commit tokens, private content, production payloads, unredacted logs, work
 
 1. **Sovereignty before convenience.**
 2. **Interoperability before platform capture.**
-3. **Explicit provenance before seamless-looking magic.**
-4. **Reversible plans before irreversible actions.**
-5. **Minimum necessary access before broad permissions.**
-6. **Shared protocols before one privileged interface.**
-7. **Unity without erasing difference.**
+3. **Automation should return time and power to people.**
+4. **Explicit provenance before seamless-looking magic.**
+5. **Reversible plans before irreversible actions.**
+6. **Minimum necessary access before broad permissions.**
+7. **Shared protocols before one privileged interface.**
+8. **The commons before artificial scarcity.**
+9. **Unity without erasing difference.**
 
 The People’s Grimoire is licensed under the [Apache License 2.0](LICENSE).
+
+**Tech workers of the world, unite.**
+
+**May all beings be liberated from the suffering of late-stage techno-dystopian capitalism.**
