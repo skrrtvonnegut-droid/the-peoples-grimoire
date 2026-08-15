@@ -8,6 +8,8 @@ The People’s Grimoire is the first step toward **fully automated luxury gay sp
 
 **Not a meme. A mantra.**
 
+The project is also a **bodhisattva vow expressed through infrastructure**, offered in the spirit of Mother Green Tara. Its measure is not power for its own sake, but whether ordinary people become less powerless. Read the [founding vow](MANIFESTO.md#founding-vow).
+
 In practical terms, that means reclaiming interoperability and automation as public capabilities: reducing drudgery, resisting platform capture, returning time and authority to people, and building digital infrastructure that can be inspected, adapted, hosted, and governed by the communities it serves. Read the [Manifesto](MANIFESTO.md).
 
 Most SaaS applications are excellent organs and terrible organisms. Each holds a fragment of our work and memory, but they rarely understand one another without brittle automations, duplicated data, and another platform demanding custody of everything.
@@ -123,6 +125,8 @@ Never commit tokens, private content, production payloads, unredacted logs, work
 7. **Shared protocols before one privileged interface.**
 8. **The commons before artificial scarcity.**
 9. **Unity without erasing difference.**
+10. **Compassion is an engineering requirement, not a branding layer.**
+11. **No liberation may depend on another person’s disposability.**
 
 The People’s Grimoire is licensed under the [Apache License 2.0](LICENSE).
 

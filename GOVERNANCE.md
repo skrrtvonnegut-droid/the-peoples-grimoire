@@ -8,17 +8,22 @@ The People’s Grimoire is a public technical commons. Governance should keep it
 
 The project’s normative direction is stated in the [Manifesto](MANIFESTO.md): build technology that returns time, agency, knowledge, and infrastructure to the people who create and depend upon it.
 
+The [founding vow](MANIFESTO.md#founding-vow) names compassion as a governance obligation. It does not require religious assent. It requires the project to examine who gains agency, who absorbs risk, whether consent and exit are real, and whether a technically successful change leaves people constrained by existing material conditions safer and more sovereign.
+
 This stance is not decorative branding and it is not a substitute for technical evidence. It informs how evidence is interpreted and which trade-offs the project is willing to make. In practice, governance should:
 
 - distribute authority rather than quietly centralize it;
 - prefer interoperable commons over proprietary enclosure;
 - evaluate automation by whose drudgery it reduces, whose power it increases, and who bears its risks;
+- prioritize the agency and safety of people most constrained by existing material conditions;
+- treat dignity, accessibility, care, repair, and belonging as legitimate system outcomes;
+- refuse efficiencies that depend on surveillance, coerced participation, hidden labor, or human disposability;
 - reject behavioral surveillance, coercive automation, and extraction as default business models;
 - preserve plural participation, including queer and non-normative ways of living and organizing;
 - value maintenance, documentation, accessibility, teaching, and care as infrastructure; and
 - keep exit, export, deletion, refusal, and self-hosting meaningful.
 
-A proposal that materially conflicts with the Manifesto must state that conflict plainly and justify why the divergence serves the people affected. Convenience, growth, or vendor access alone is not sufficient justification.
+A proposal that materially conflicts with the Manifesto or founding vow must state that conflict plainly and justify why the divergence serves the people affected. Convenience, growth, efficiency, or vendor access alone is not sufficient justification.
 
 ## Maintainer model
 
@@ -123,6 +128,7 @@ A mergeable change should include, where applicable:
 - documentation;
 - privacy and permission impact;
 - user-agency and anti-capture impact;
+- compassion impact: who becomes safer or more sovereign, who could be harmed or made disposable, and how that risk is mitigated;
 - migration behavior;
 - provenance for generated or transformed material;
 - disclosure of material AI assistance; and
