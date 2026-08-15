@@ -2,22 +2,24 @@
 
 > A user-owned connective tissue for the tools where we work, think, build, and remember.
 
-Most SaaS applications are excellent organs and terrible organisms. They each hold a fragment of our work and memory, but they rarely understand one another without brittle automations, duplicated data, and another platform demanding custody of everything.
+Most SaaS applications are excellent organs and terrible organisms. Each holds a fragment of our work and memory, but they rarely understand one another without brittle automations, duplicated data, and another platform demanding custody of everything.
 
 **The People’s Grimoire** is an open-source framework for connecting those fragments into a coherent, governable whole.
 
-It is designed to be:
+> [!WARNING]
+> This project is **pre-alpha**. The current runtime is a safe architectural scaffold, not a production synchronization service. It performs dry-runs and in-memory demonstrations only.
 
-- **User-owned** — your data, mappings, policies, and credentials remain under your control.
-- **Local-first and self-hostable** — no mandatory central service becomes the new owner of your digital life.
-- **Connector-based** — each SaaS application is an adapter, not a dependency baked into the core.
-- **Event-driven** — changes become explicit, traceable events rather than invisible background magic.
-- **Policy-governed** — every synchronization can be filtered, approved, reversed, or refused.
-- **Human-accountable** — AI may help interpret and coordinate, but people retain authority over consequential actions.
+## What makes it different
 
-## The idea
+- **User-owned:** data, mappings, policies, and credentials remain under the operator’s control.
+- **Local-first and self-hostable:** no mandatory central service becomes the new owner of a person’s digital life.
+- **Connector-based:** every SaaS application is an adapter, not a dependency embedded in the core.
+- **Event-driven:** changes become explicit, traceable events instead of invisible background magic.
+- **Policy-governed:** every proposed synchronization can be filtered, approved, reversed, or refused.
+- **Human-accountable:** AI may interpret, draft, and coordinate, but people retain authority over consequential actions.
+- **Plural by design:** unity comes from shared language and relationships, not from flattening every tool into the same shape.
 
-The Grimoire treats a person’s digital ecosystem as a living system:
+## The organism
 
 - **Connectors** are its senses and nerves.
 - **The canonical schema** is its shared language.
@@ -42,35 +44,53 @@ flowchart LR
 
 The founding implementation connects Notion and GitHub without pretending they are interchangeable.
 
-The initial recipes will explore flows such as:
+The first recipes will explore:
 
 - GitHub issues becoming linked Notion tasks or knowledge records.
 - Notion decisions becoming versioned Architecture Decision Records.
 - Merged pull requests updating project history in Notion.
 - Shared project identities connecting repositories, pages, tasks, decisions, and releases.
 
-Bidirectional synchronization is **field-specific**, not blind. Every recipe declares which system is authoritative for each field, how conflicts are handled, and whether a person must approve a proposed change.
+Bidirectional synchronization is **field-specific**, not blind. Every recipe declares which system is authoritative, how identities are linked, how conflicts are held, and whether a person must approve the proposed change.
+
+Read the [Notion ↔ GitHub MVP design](docs/connectors/NOTION_GITHUB_MVP.md).
+
+## Reference runtime
+
+The repository includes a deliberately small Python runtime that demonstrates the plan/apply boundary.
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -e ".[dev]"
+
+# Produces a sanitized dry-run. No SaaS API is contacted.
+grimoire demo
+
+# Applies the same plan only to an in-memory recording connector.
+grimoire demo --apply
+
+pytest
+```
+
+The runtime currently provides connector-neutral models, deterministic event and action identifiers, explicit proposed actions, dry-run behavior, per-action approval gates, and an append-only in-memory ledger. It intentionally contains no production Notion or GitHub API client yet.
 
 ## Public commons, private instance
 
-This repository contains the public protocol, runtime, connector interfaces, documentation, examples, and sanitized test fixtures.
+This repository contains public protocols, runtime code, connector contracts, documentation, schemas, and sanitized fixtures.
 
-A real deployment keeps personal configuration and private mappings outside this public repository. Credentials belong in an environment, operating-system keychain, or dedicated secret manager—**not in Git, even when the repository is private**.
+A real deployment keeps private configuration and identity mappings outside this repository. Credentials belong in environment variables, an operating-system keychain, or a dedicated secret manager—**not in Git, even when the repository is private**.
 
-The project will never require contributors to publish personal content in order to reproduce a bug or demonstrate a connector.
+Never commit tokens, private content, production payloads, unredacted logs, workspace inventories, or mappings that expose the structure of a person’s digital life.
 
-## Project status
+## Read next
 
-**Foundational / pre-alpha.** The architecture, trust boundaries, canonical event model, and first Notion–GitHub recipe are being established before production credentials or irreversible writes are introduced.
-
-The next foundation commit will add:
-
-- architecture and privacy documentation;
-- governance and contribution guidelines;
-- a Python reference runtime;
-- canonical event schemas;
-- sanitized example recipes;
-- the first public implementation roadmap.
+- [Architecture](docs/ARCHITECTURE.md)
+- [Privacy and Trust](docs/PRIVACY.md)
+- [Roadmap](ROADMAP.md)
+- [Governance](GOVERNANCE.md)
+- [Contributing](CONTRIBUTING.md)
+- [Security](SECURITY.md)
 
 ## Principles
 
@@ -82,8 +102,4 @@ The next foundation commit will add:
 6. **Shared protocols before one privileged interface.**
 7. **Unity without erasing difference.**
 
-## Participation
-
-The People’s Grimoire is intended as a public commons: useful to individual knowledge workers, small teams, open-source communities, and anyone tired of their digital life being divided into proprietary islands.
-
-The repository is being built in public from its first architectural decisions. Contributions will be welcomed once the foundation documents and connector contract are merged.
+The People’s Grimoire is licensed under the [Apache License 2.0](LICENSE).
