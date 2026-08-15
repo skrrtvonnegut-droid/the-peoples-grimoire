@@ -14,7 +14,10 @@ class ConnectorDecisionContext:
     irreversible: bool = False
 
     @classmethod
-    def from_decision(cls, decision: CapabilityDecision) -> "ConnectorDecisionContext":
+    def from_decision(
+        cls,
+        decision: CapabilityDecision,
+    ) -> ConnectorDecisionContext:
         return cls(
             operation=(
                 decision.capability.operation.value
