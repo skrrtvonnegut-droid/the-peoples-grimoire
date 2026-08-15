@@ -8,6 +8,29 @@ The People’s Grimoire is the first step toward **fully automated luxury gay sp
 
 It names a horizon: a future in which technology expands human freedom, shared abundance, care, play, creativity, rest, and the right to be gloriously different. The phrase is deliberately excessive because the future offered by late-stage techno-dystopian capitalism is deliberately impoverished. We refuse to let “realism” mean accepting enclosure, surveillance, artificial scarcity, permanent rent, or a life reorganized around extracting more labor from exhausted people.
 
+## Founding vow
+
+> **We imbue this spell with the magic and compassion of Mother Green Tara.**
+>
+> May this project seek to end the suffering of all those who feel shackled by the material conditions of their lives.
+>
+> May they gain sovereignty and freedom.  
+> May they gain safety and love.
+>
+> May its automations loosen chains rather than tighten them.  
+> May its systems protect the vulnerable rather than concentrate power.  
+> May it remain open to correction, governed by compassion, and accountable to the people it serves.
+>
+> **Oṃ Tāre Tuttāre Ture Svāhā.**
+
+This is not a product oath. It is a **bodhisattva vow expressed through infrastructure**.
+
+Mother Green Tara represents compassion that moves: the readiness to cross from intention into aid. The project invokes that orientation without making Buddhist belief, ritual, or language a condition of participation. Contributors are not asked to share a faith. They are asked to accept the material demand of the vow: meet suffering with practical compassion, trace power honestly, and build systems that increase the real agency of people who are most constrained by existing conditions.
+
+Compassion here is not sentimentality, paternalism, or permission to decide for others. It requires consent, safety, accessibility, repair, meaningful exit, and attention to who absorbs the cost of convenience. The project has failed its vow whenever it becomes technically impressive by making people more surveilled, dependent, disposable, or afraid.
+
+The engineering interpretation of this vow is recorded in [ADR 0005](docs/adr/0005-compassion-as-an-engineering-requirement.md).
+
 ## The enclosure we inherited
 
 Our digital lives are divided among privately governed platforms. Knowledge is trapped in proprietary formats. Identities are fragmented across services. Creative work is enclosed inside applications that can change their prices, permissions, interfaces, or terms without our consent. Automation is abundant, but its benefits are distributed unevenly: institutions use it to intensify work, measure people, and consolidate control while ordinary users are left maintaining brittle integrations and copying the same truth between systems.
