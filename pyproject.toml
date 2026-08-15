@@ -5,12 +5,21 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "peoples-grimoire"
 version = "0.0.2"
-description = "A user-owned connective tissue for SaaS applications."
+description = "A user-owned, local-first interoperability commons for connected tools."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { file = "LICENSE" }
 authors = [{ name = "The People's Grimoire contributors" }]
-keywords = ["automation", "integration", "knowledge-management", "local-first", "saas"]
+keywords = [
+  "automation",
+  "commons",
+  "digital-sovereignty",
+  "integration",
+  "interoperability",
+  "knowledge-management",
+  "local-first",
+  "saas",
+]
 classifiers = [
   "Development Status :: 2 - Pre-Alpha",
   "License :: OSI Approved :: Apache Software License",

@@ -1,11 +1,12 @@
 # Roadmap
 
-The roadmap is capability-based rather than date-driven. Each phase must preserve the privacy and approval boundaries established before it.
+The roadmap translates the [Manifesto](MANIFESTO.md) into capability. It is capability-based rather than date-driven. Each phase must preserve the privacy, approval, user-agency, and anti-capture boundaries established before it.
 
 ## Phase 0 — Foundation
 
 **Goal:** make the project legible before it becomes powerful.
 
+- [x] Founding manifesto and public stance.
 - [x] Public vision and principles.
 - [x] Federated architecture decision.
 - [x] Privacy and trust boundary.
@@ -94,6 +95,9 @@ The roadmap is capability-based rather than date-driven. Each phase must preserv
 ## Later horizons
 
 - Additional connectors selected through community demand and maintainer capacity.
+- Community-governed connector and recipe commons.
+- Cooperative hosting patterns that do not create a new platform landlord.
+- Labor-saving automation evaluated by time returned, not activity extracted.
 - Team roles and multi-operator approval.
 - Encrypted local content cache.
 - Distributed or replicated local-first state.
@@ -108,6 +112,7 @@ Every phase includes:
 - privacy review;
 - threat-model updates;
 - least-privilege documentation;
+- user-agency and anti-capture review;
 - synthetic fixtures;
 - replay and idempotency tests;
 - export and deletion behavior;
@@ -123,7 +128,9 @@ The project will not prioritize the following before the trust model is proven:
 - automatic destructive actions;
 - opaque autonomous agents;
 - full-content replication;
-- marketplace monetization; or
+- marketplace monetization;
+- behavioral advertising or surveillance infrastructure;
+- automation designed primarily to intensify labor or evade accountability; or
 - dozens of shallow connectors.
 
-The first job is not to connect everything. It is to establish a way of connecting things that deserves trust.
+The first job is not to connect everything. It is to establish a way of connecting things that deserves trust—and returns power to the people using it.

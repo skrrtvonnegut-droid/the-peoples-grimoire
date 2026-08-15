@@ -2,7 +2,23 @@
 
 ## Purpose
 
-The People’s Grimoire is a public technical commons. Governance should keep it useful, safe, plural, and resistant to capture by any single vendor, interface, or automated system.
+The People’s Grimoire is a public technical commons. Governance should keep it useful, safe, plural, and resistant to capture by any single vendor, interface, investor, or automated system.
+
+## Founding stance
+
+The project’s normative direction is stated in the [Manifesto](MANIFESTO.md): build technology that returns time, agency, knowledge, and infrastructure to the people who create and depend upon it.
+
+This stance is not decorative branding and it is not a substitute for technical evidence. It informs how evidence is interpreted and which trade-offs the project is willing to make. In practice, governance should:
+
+- distribute authority rather than quietly centralize it;
+- prefer interoperable commons over proprietary enclosure;
+- evaluate automation by whose drudgery it reduces, whose power it increases, and who bears its risks;
+- reject behavioral surveillance, coercive automation, and extraction as default business models;
+- preserve plural participation, including queer and non-normative ways of living and organizing;
+- value maintenance, documentation, accessibility, teaching, and care as infrastructure; and
+- keep exit, export, deletion, refusal, and self-hosting meaningful.
+
+A proposal that materially conflicts with the Manifesto must state that conflict plainly and justify why the divergence serves the people affected. Convenience, growth, or vendor access alone is not sufficient justification.
 
 ## Maintainer model
 
@@ -93,7 +109,7 @@ The default approach is rough consensus supported by written rationale and worki
 When consensus is not available:
 
 1. identify the reversible experiment;
-2. prefer the choice that preserves user sovereignty and future optionality;
+2. prefer the choice that preserves user sovereignty, shared power, and future optionality;
 3. record dissent and trade-offs;
 4. time-box the experiment through a release boundary; and
 5. let the maintainer of record decide only when a decision is necessary.
@@ -106,6 +122,7 @@ A mergeable change should include, where applicable:
 - tests or fixtures;
 - documentation;
 - privacy and permission impact;
+- user-agency and anti-capture impact;
 - migration behavior;
 - provenance for generated or transformed material;
 - disclosure of material AI assistance; and
@@ -127,9 +144,9 @@ Pre-alpha versions make no compatibility guarantee. Compatibility policy will be
 
 ## Independence
 
-The project may integrate with commercial applications but should not grant any vendor privileged governance rights in exchange for access, sponsorship, or distribution.
+The project may integrate with commercial applications but should not grant any vendor privileged governance rights in exchange for access, sponsorship, investment, or distribution.
 
-Sponsorships and material conflicts of interest must be disclosed.
+Sponsorships and material conflicts of interest must be disclosed. Funding arrangements must not override the Manifesto, privacy model, or community governance without an explicit public amendment.
 
 ## Amendments
 
