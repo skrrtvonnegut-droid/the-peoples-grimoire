@@ -1,16 +1,8 @@
 # The People’s Grimoire
-
-> **Automating the means of production since 2026.**
 >
 > A user-owned connective tissue for the tools where we work, think, build, and remember.
 
-The People’s Grimoire is the first step toward **fully automated luxury gay space communism**.
-
-**Not a meme. A mantra.**
-
-The project is also a **bodhisattva vow expressed through infrastructure**, grounded in active compassion. Its measure is not power for its own sake, but whether ordinary people become less powerless. Read the [founding vow](MANIFESTO.md#founding-vow).
-
-In practical terms, that means reclaiming interoperability and automation as public capabilities: reducing drudgery, resisting platform capture, returning time and authority to people, and building digital infrastructure that can be inspected, adapted, hosted, and governed by the communities it serves. Read the [Manifesto](MANIFESTO.md).
+> reclaiming interoperability and automation as public capabilities: reducing drudgery, resisting platform capture, returning time and authority to people, and building digital infrastructure that can be inspected, adapted, hosted, and governed by the communities it serves.
 
 Most SaaS applications are excellent organs and terrible organisms. Each holds a fragment of our work and memory, but they rarely understand one another without brittle automations, duplicated data, and another platform demanding custody of everything.
 
