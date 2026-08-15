@@ -1,0 +1,136 @@
+{
+  "schema_version": "0.1.0",
+  "name": "notion",
+  "version": "0.1.0",
+  "protocol_versions": [
+    "0.1"
+  ],
+  "resource_types": [
+    "database",
+    "page"
+  ],
+  "capabilities": [
+    {
+      "action": "read_page",
+      "operation": "read",
+      "resource_types": [
+        "page"
+      ],
+      "required_permissions": [
+        "content:read"
+      ],
+      "idempotent": true,
+      "conditional_updates": false,
+      "irreversible": false,
+      "requires_approval": false
+    },
+    {
+      "action": "observe_database",
+      "operation": "observe",
+      "resource_types": [
+        "database"
+      ],
+      "required_permissions": [
+        "content:read"
+      ],
+      "idempotent": true,
+      "conditional_updates": false,
+      "irreversible": false,
+      "requires_approval": false
+    },
+    {
+      "action": "create_page",
+      "operation": "create",
+      "resource_types": [
+        "page"
+      ],
+      "required_permissions": [
+        "content:write"
+      ],
+      "idempotent": false,
+      "conditional_updates": false,
+      "irreversible": false,
+      "requires_approval": true
+    },
+    {
+      "action": "update_properties",
+      "operation": "update",
+      "resource_types": [
+        "page"
+      ],
+      "required_permissions": [
+        "content:write"
+      ],
+      "idempotent": true,
+      "conditional_updates": true,
+      "irreversible": false,
+      "requires_approval": true
+    },
+    {
+      "action": "archive_page",
+      "operation": "delete",
+      "resource_types": [
+        "page"
+      ],
+      "required_permissions": [
+        "content:write"
+      ],
+      "idempotent": true,
+      "conditional_updates": false,
+      "irreversible": false,
+      "requires_approval": true
+    }
+  ],
+  "authentication": {
+    "methods": [
+      "api_token",
+      "oauth2"
+    ],
+    "minimum_permissions": []
+  },
+  "delivery": {
+    "polling": true,
+    "webhooks": true
+  },
+  "rate_limit": {
+    "strategy": "provider",
+    "retry": {
+      "strategy": "exponential",
+      "max_attempts": 5,
+      "honors_retry_after": true
+    }
+  },
+  "sensitivity": {
+    "sensitive_fields": [
+      "authorization",
+      "body",
+      "email",
+      "rich_text",
+      "title",
+      "url"
+    ],
+    "data_classes": [
+      "authentication",
+      "personal_content",
+      "personal_identifier"
+    ],
+    "default_redaction": "fingerprint"
+  },
+  "deletion": {
+    "behavior": "soft_delete",
+    "recovery_supported": true
+  },
+  "conformance": {
+    "fixtures": [
+      "examples/fixtures/notion.page.synthetic.json"
+    ],
+    "tests": [
+      "approval",
+      "conditional_update",
+      "deletion",
+      "dry_run",
+      "execute",
+      "manifest"
+    ]
+  }
+}

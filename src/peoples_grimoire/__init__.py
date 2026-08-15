@@ -9,6 +9,8 @@ from .models import (
     ProposedAction,
     ResourceRef,
 )
+from .observability import LogContext, StructuredLogger
+from .redaction import Redactor
 
 __all__ = [
     "ActionRecord",
@@ -17,8 +19,11 @@ __all__ = [
     "GrimoireEngine",
     "GrimoireEvent",
     "InMemoryLedger",
+    "LogContext",
     "ProposedAction",
+    "Redactor",
     "ResourceRef",
+    "StructuredLogger",
 ]
 
-__version__ = "0.0.1"
+__version__ = "0.0.2"

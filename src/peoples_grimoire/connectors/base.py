@@ -8,6 +8,8 @@ from typing import Any, Protocol, runtime_checkable
 
 from peoples_grimoire.models import ProposedAction
 
+from .capabilities import ConnectorManifest
+
 
 class ConnectorExecutionError(RuntimeError):
     """Raised when a connector cannot safely complete an action."""
@@ -20,13 +22,16 @@ class ExecutionResult:
     external_id: str | None = None
     url: str | None = None
     detail: Mapping[str, Any] = field(default_factory=dict)
+    safe_detail_fields: frozenset[str] = field(default_factory=frozenset)
 
 
 @runtime_checkable
 class Connector(Protocol):
-    """Minimum write-side interface implemented by every connector."""
+    """Capability-declaring interface implemented by every connector."""
 
     name: str
+    manifest: ConnectorManifest
+    granted_permissions: frozenset[str]
 
     def execute(self, action: ProposedAction) -> ExecutionResult:
         """Apply one approved action or raise ConnectorExecutionError."""

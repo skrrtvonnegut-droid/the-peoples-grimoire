@@ -1,0 +1,370 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://peoples-grimoire.dev/schemas/connector-manifest.schema.json",
+  "title": "The People's Grimoire connector capability manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "name",
+    "version",
+    "protocol_versions",
+    "resource_types",
+    "capabilities",
+    "authentication",
+    "delivery",
+    "rate_limit",
+    "sensitivity",
+    "deletion",
+    "conformance"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(?:[-+][A-Za-z0-9.-]+)?$"
+    },
+    "protocol_versions": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^\\d+\\.\\d+$"
+      }
+    },
+    "resource_types": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/identifier"
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/capability"
+      }
+    },
+    "authentication": {
+      "$ref": "#/$defs/authentication"
+    },
+    "delivery": {
+      "$ref": "#/$defs/delivery"
+    },
+    "rate_limit": {
+      "$ref": "#/$defs/rateLimit"
+    },
+    "sensitivity": {
+      "$ref": "#/$defs/sensitivity"
+    },
+    "deletion": {
+      "$ref": "#/$defs/deletion"
+    },
+    "conformance": {
+      "$ref": "#/$defs/conformance"
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_.:-]*$"
+    },
+    "stringSet": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "capability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action",
+        "operation",
+        "resource_types",
+        "required_permissions",
+        "idempotent",
+        "conditional_updates",
+        "irreversible",
+        "requires_approval"
+      ],
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/identifier"
+        },
+        "operation": {
+          "enum": [
+            "read",
+            "observe",
+            "create",
+            "update",
+            "delete"
+          ]
+        },
+        "resource_types": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        },
+        "required_permissions": {
+          "$ref": "#/$defs/stringSet"
+        },
+        "idempotent": {
+          "type": "boolean"
+        },
+        "conditional_updates": {
+          "type": "boolean"
+        },
+        "irreversible": {
+          "type": "boolean"
+        },
+        "requires_approval": {
+          "type": "boolean"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "enum": [
+                  "read",
+                  "observe"
+                ]
+              }
+            },
+            "required": [
+              "operation"
+            ]
+          },
+          "then": {
+            "properties": {
+              "irreversible": {
+                "const": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "conditional_updates": {
+                "const": true
+              }
+            },
+            "required": [
+              "conditional_updates"
+            ]
+          },
+          "then": {
+            "properties": {
+              "operation": {
+                "const": "update"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "authentication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "methods",
+        "minimum_permissions"
+      ],
+      "properties": {
+        "methods": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "none",
+              "api_token",
+              "oauth2",
+              "github_app",
+              "webhook_secret"
+            ]
+          }
+        },
+        "minimum_permissions": {
+          "$ref": "#/$defs/stringSet"
+        }
+      }
+    },
+    "delivery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "polling",
+        "webhooks"
+      ],
+      "properties": {
+        "polling": {
+          "type": "boolean"
+        },
+        "webhooks": {
+          "type": "boolean"
+        }
+      }
+    },
+    "rateLimit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "strategy",
+        "retry"
+      ],
+      "properties": {
+        "strategy": {
+          "enum": [
+            "none",
+            "provider",
+            "fixed"
+          ]
+        },
+        "retry": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "strategy",
+            "max_attempts",
+            "honors_retry_after"
+          ],
+          "properties": {
+            "strategy": {
+              "enum": [
+                "none",
+                "fixed",
+                "exponential"
+              ]
+            },
+            "max_attempts": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 20
+            },
+            "honors_retry_after": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "sensitivity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sensitive_fields",
+        "data_classes",
+        "default_redaction"
+      ],
+      "properties": {
+        "sensitive_fields": {
+          "$ref": "#/$defs/stringSet"
+        },
+        "data_classes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "anyOf": [
+              {
+                "enum": [
+                  "authentication",
+                  "personal_identifier",
+                  "personal_content",
+                  "financial",
+                  "health",
+                  "privileged_access",
+                  "destructive_control",
+                  "synthetic"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^x-[a-z0-9-]+$"
+              }
+            ]
+          }
+        },
+        "default_redaction": {
+          "enum": [
+            "omit",
+            "fingerprint"
+          ]
+        }
+      }
+    },
+    "deletion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "behavior",
+        "recovery_supported"
+      ],
+      "properties": {
+        "behavior": {
+          "enum": [
+            "none",
+            "soft_delete",
+            "hard_delete",
+            "provider_defined"
+          ]
+        },
+        "recovery_supported": {
+          "type": "boolean"
+        }
+      }
+    },
+    "conformance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fixtures",
+        "tests"
+      ],
+      "properties": {
+        "fixtures": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "tests": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "manifest",
+              "dry_run",
+              "approval",
+              "execute",
+              "idempotency",
+              "conditional_update",
+              "deletion",
+              "webhook_signature"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -73,7 +73,15 @@ grimoire demo --apply
 pytest
 ```
 
-The runtime currently provides connector-neutral models, deterministic event and action identifiers, explicit proposed actions, dry-run behavior, per-action approval gates, and an append-only in-memory ledger. It intentionally contains no production Notion or GitHub API client yet.
+The runtime currently provides connector-neutral models, deterministic event and action identifiers, explicit proposed actions, dry-run behavior, per-action approval gates, an append-only in-memory ledger, connector capability enforcement, and content-minimizing structured observability. It intentionally contains no production Notion or GitHub API client yet.
+
+### Trust substrate
+
+Before a connector can execute an action, its manifest must declare the exact action, resource type, protocol compatibility, and required permissions. The active credential must satisfy that declaration, and a recipe cannot widen it. Undeclared actions and missing scopes fail before approval or execution.
+
+Operational records use deny-by-default serialization. Core secrets are always redacted, private identifiers become keyed fingerprints, unknown payload fields are omitted, and exception messages are replaced by correlated diagnostic identifiers. Debug mode cannot disable those controls.
+
+Read the [connector capability contract](docs/connectors/CAPABILITY_MANIFEST.md) and [safe observability model](docs/OBSERVABILITY.md).
 
 ## Public commons, private instance
 
@@ -87,6 +95,8 @@ Never commit tokens, private content, production payloads, unredacted logs, work
 
 - [Architecture](docs/ARCHITECTURE.md)
 - [Privacy and Trust](docs/PRIVACY.md)
+- [Connector Capability Manifest](docs/connectors/CAPABILITY_MANIFEST.md)
+- [Safe Observability](docs/OBSERVABILITY.md)
 - [Roadmap](ROADMAP.md)
 - [Governance](GOVERNANCE.md)
 - [Contributing](CONTRIBUTING.md)

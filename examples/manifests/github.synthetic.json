@@ -1,0 +1,125 @@
+{
+  "schema_version": "0.1.0",
+  "name": "github",
+  "version": "0.1.0",
+  "protocol_versions": [
+    "0.1"
+  ],
+  "resource_types": [
+    "issue",
+    "pull_request",
+    "release",
+    "repository"
+  ],
+  "capabilities": [
+    {
+      "action": "read_issue",
+      "operation": "read",
+      "resource_types": [
+        "issue"
+      ],
+      "required_permissions": [
+        "issues:read"
+      ],
+      "idempotent": true,
+      "conditional_updates": false,
+      "irreversible": false,
+      "requires_approval": false
+    },
+    {
+      "action": "observe_issue",
+      "operation": "observe",
+      "resource_types": [
+        "issue"
+      ],
+      "required_permissions": [
+        "issues:read"
+      ],
+      "idempotent": true,
+      "conditional_updates": false,
+      "irreversible": false,
+      "requires_approval": false
+    },
+    {
+      "action": "create_issue",
+      "operation": "create",
+      "resource_types": [
+        "issue"
+      ],
+      "required_permissions": [
+        "issues:write"
+      ],
+      "idempotent": false,
+      "conditional_updates": false,
+      "irreversible": false,
+      "requires_approval": true
+    },
+    {
+      "action": "update_issue",
+      "operation": "update",
+      "resource_types": [
+        "issue"
+      ],
+      "required_permissions": [
+        "issues:write"
+      ],
+      "idempotent": true,
+      "conditional_updates": true,
+      "irreversible": false,
+      "requires_approval": true
+    }
+  ],
+  "authentication": {
+    "methods": [
+      "github_app",
+      "oauth2"
+    ],
+    "minimum_permissions": [
+      "metadata:read"
+    ]
+  },
+  "delivery": {
+    "polling": true,
+    "webhooks": true
+  },
+  "rate_limit": {
+    "strategy": "provider",
+    "retry": {
+      "strategy": "exponential",
+      "max_attempts": 5,
+      "honors_retry_after": true
+    }
+  },
+  "sensitivity": {
+    "sensitive_fields": [
+      "authorization",
+      "body",
+      "cookie",
+      "email",
+      "title",
+      "url"
+    ],
+    "data_classes": [
+      "authentication",
+      "personal_content",
+      "personal_identifier"
+    ],
+    "default_redaction": "fingerprint"
+  },
+  "deletion": {
+    "behavior": "none",
+    "recovery_supported": true
+  },
+  "conformance": {
+    "fixtures": [
+      "examples/fixtures/github.issue.synthetic.json"
+    ],
+    "tests": [
+      "approval",
+      "conditional_update",
+      "dry_run",
+      "execute",
+      "manifest"
+    ]
+  }
+}
