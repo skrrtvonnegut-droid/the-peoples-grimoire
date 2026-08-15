@@ -1,0 +1,193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:peoples-grimoire:schema:artifact:0.1.0",
+  "title": "Grimoire Artifact Manifest",
+  "description": "A minimal registry record for one durable logical artifact and its external representations.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "schema_version",
+    "id",
+    "title",
+    "artifact_type",
+    "classification",
+    "lifecycle",
+    "representations",
+    "authority",
+    "provenance"
+  ],
+  "properties": {
+    "kind": {"const": "grimoire.artifact"},
+    "schema_version": {"const": "0.1.0"},
+    "id": {"$ref": "#/$defs/stableId"},
+    "title": {"type": "string", "minLength": 1, "maxLength": 300},
+    "artifact_type": {
+      "enum": [
+        "knowledge",
+        "document",
+        "prompt",
+        "code",
+        "configuration",
+        "decision",
+        "project",
+        "task",
+        "conversation",
+        "media",
+        "other"
+      ]
+    },
+    "classification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sensitivity", "publication", "content_policy"],
+      "properties": {
+        "sensitivity": {"$ref": "#/$defs/sensitivity"},
+        "publication": {
+          "enum": ["not-approved", "review-required", "approved"]
+        },
+        "content_policy": {
+          "enum": ["canonical-content", "metadata-only", "reference-only"]
+        },
+        "contains_personal_data": {"type": "boolean"}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"publication": {"const": "approved"}},
+            "required": ["publication"]
+          },
+          "then": {
+            "properties": {
+              "sensitivity": {"enum": ["public", "operational"]}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"sensitivity": {"const": "secret"}},
+            "required": ["sensitivity"]
+          },
+          "then": {
+            "properties": {"content_policy": {"const": "reference-only"}}
+          }
+        }
+      ]
+    },
+    "lifecycle": {
+      "enum": ["seed", "developing", "active", "stable", "superseded", "archived"]
+    },
+    "representations": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "contains": {
+        "type": "object",
+        "properties": {"role": {"const": "canonical"}},
+        "required": ["role"]
+      },
+      "minContains": 1,
+      "items": {"$ref": "#/$defs/representation"}
+    },
+    "authority": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["concern", "representation", "conflict_policy"],
+        "properties": {
+          "concern": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "maxLength": 120
+          },
+          "representation": {"$ref": "#/$defs/stableId"},
+          "conflict_policy": {
+            "enum": ["hold-and-surface", "canonical-wins", "manual"]
+          }
+        }
+      }
+    },
+    "references": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["artifact_id", "relationship"],
+        "properties": {
+          "artifact_id": {"$ref": "#/$defs/stableId"},
+          "relationship": {
+            "enum": [
+              "references",
+              "derived-from",
+              "supersedes",
+              "implements",
+              "documents",
+              "related"
+            ]
+          }
+        }
+      }
+    },
+    "content_hash": {
+      "oneOf": [
+        {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+        {"type": "string", "pattern": "^sha512:[a-f0-9]{128}$"}
+      ]
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["created_by", "source_type", "captured_at"],
+      "properties": {
+        "created_by": {"enum": ["human", "automation", "ai-assisted", "import"]},
+        "source_type": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
+        },
+        "captured_at": {"type": "string", "format": "date-time"},
+        "source_reference": {"type": "string", "maxLength": 1000}
+      }
+    }
+  },
+  "$defs": {
+    "stableId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)+$",
+      "maxLength": 180
+    },
+    "sensitivity": {
+      "enum": [
+        "public",
+        "operational",
+        "private",
+        "confidential",
+        "high-impact",
+        "secret",
+        "unknown"
+      ]
+    },
+    "representation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "system", "resource_type", "locator", "role", "visibility"],
+      "properties": {
+        "id": {"$ref": "#/$defs/stableId"},
+        "system": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+        },
+        "resource_type": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+        },
+        "locator": {"type": "string", "minLength": 1, "maxLength": 2000},
+        "role": {"enum": ["canonical", "reference", "derived", "mirror"]},
+        "visibility": {"enum": ["public", "private", "unknown"]},
+        "version": {"type": "string", "maxLength": 300}
+      }
+    }
+  }
+}

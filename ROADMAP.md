@@ -14,7 +14,8 @@ The roadmap is capability-based rather than date-driven. Each phase must preserv
 - [x] Python reference models.
 - [x] Dry-run and approval-gated execution scaffold.
 - [x] Sanitized configuration and recipe examples.
-- [ ] Durable issue backlog and connector research notes.
+- [x] Durable issue backlog and connector research notes.
+- [x] Typed connector, instance, and artifact manifests with bundle validation.
 - [ ] License, dependency, and supply-chain review.
 
 ## v0.1 — Readable memory
@@ -22,7 +23,7 @@ The roadmap is capability-based rather than date-driven. Each phase must preserv
 **Goal:** observe Notion and GitHub safely and connect identities without production writes.
 
 - Durable SQLite state and migrations.
-- Connector capability manifest schema.
+- Connector implementation conformance harness.
 - GitHub read connector for repositories, issues, pull requests, and releases.
 - Notion read connector for explicitly configured pages and databases.
 - Polling cursors and replay protection.
@@ -54,9 +55,9 @@ The roadmap is capability-based rather than date-driven. Each phase must preserv
 
 **Goal:** make a third connector possible without changing the core.
 
-- Versioned connector protocol.
-- Capability manifest tooling.
-- Contract and conformance tests.
+- Versioned connector runtime protocol.
+- Capability manifest authoring tooling.
+- Contract and behavioral conformance tests.
 - Synthetic fixture generator.
 - Permission and data-class documentation template.
 - Connector development CLI.

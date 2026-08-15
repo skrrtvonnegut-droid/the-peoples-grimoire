@@ -10,7 +10,14 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = { file = "LICENSE" }
 authors = [{ name = "The People's Grimoire contributors" }]
-keywords = ["automation", "integration", "knowledge-management", "local-first", "saas"]
+keywords = [
+  "automation",
+  "data-sovereignty",
+  "integration",
+  "knowledge-management",
+  "local-first",
+  "saas",
+]
 classifiers = [
   "Development Status :: 2 - Pre-Alpha",
   "License :: OSI Approved :: Apache Software License",
@@ -18,17 +25,26 @@ classifiers = [
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Typing :: Typed",
 ]
-dependencies = []
+dependencies = [
+  "jsonschema[format]>=4.23,<5",
+  "PyYAML>=6,<7",
+]
 
 [project.optional-dependencies]
 dev = [
-  "pytest>=8.0",
-  "ruff>=0.6",
+  "pytest>=8,<10",
+  "ruff>=0.9,<1",
 ]
 
 [project.scripts]
 grimoire = "peoples_grimoire.cli:main"
+
+[project.urls]
+Repository = "https://github.com/skrrtvonnegut-droid/the-peoples-grimoire"
+Issues = "https://github.com/skrrtvonnegut-droid/the-peoples-grimoire/issues"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
@@ -36,8 +52,12 @@ package-dir = {"" = "src"}
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+peoples_grimoire = ["schemas/*.json", "py.typed"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+addopts = "-q"
 
 [tool.ruff]
 line-length = 100

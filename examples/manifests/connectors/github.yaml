@@ -1,0 +1,79 @@
+kind: grimoire.connector
+schema_version: "0.1.0"
+id: connector.github-readonly
+name: GitHub Read-Only Reference Connector
+provider: github
+version: "0.1.0-experimental"
+maturity: experimental
+protocol_compatibility:
+  minimum: "0.1.0"
+  maximum_exclusive: "0.2.0"
+authentication:
+  methods:
+    - app-installation
+    - access-token
+  secret_reference_schemes:
+    - env
+    - keyring
+    - vault
+resource_types:
+  - id: repository
+    sensitivities: [public, operational, private, confidential]
+  - id: issue
+    sensitivities: [public, operational, private, confidential]
+  - id: pull-request
+    sensitivities: [public, operational, private, confidential]
+  - id: release
+    sensitivities: [public, operational, private]
+capabilities:
+  - id: capability.github.repository-read
+    effect: read
+    operations: [discover, read]
+    resource_types: [repository]
+    required_scopes: [metadata:read]
+    reversibility: reversible
+    approval_default: policy-controlled
+    idempotency: not-applicable
+  - id: capability.github.issue-read
+    effect: read
+    operations: [search, read, observe]
+    resource_types: [issue]
+    required_scopes: [issues:read]
+    reversibility: reversible
+    approval_default: policy-controlled
+    idempotency: runtime
+  - id: capability.github.pull-request-read
+    effect: read
+    operations: [search, read, observe]
+    resource_types: [pull-request]
+    required_scopes: [pull-requests:read]
+    reversibility: reversible
+    approval_default: policy-controlled
+    idempotency: runtime
+  - id: capability.github.release-read
+    effect: read
+    operations: [search, read, observe]
+    resource_types: [release]
+    required_scopes: [contents:read]
+    reversibility: reversible
+    approval_default: policy-controlled
+    idempotency: runtime
+data_handling:
+  default_retention: metadata-only
+  default_log_policy: deny-payload
+  sensitive_fields:
+    - authorization
+    - cookie
+    - issue.body
+    - pull_request.body
+    - user.email
+eventing:
+  modes: [polling, webhook]
+  signature_verification: supported
+rate_limits:
+  strategy: provider-headers
+  retry_after_supported: true
+conformance:
+  synthetic_fixtures: true
+  contract_tests: false
+  notes: Capability example only; no production GitHub client is included yet.

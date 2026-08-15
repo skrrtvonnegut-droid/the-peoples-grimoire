@@ -36,6 +36,7 @@ python -m pip install -e ".[dev]"
 
 ruff check .
 pytest
+grimoire validate examples/manifests
 ```
 
 On Windows PowerShell, activate the environment with:
@@ -93,7 +94,7 @@ Do not paste private connected content into an external model merely to create a
 
 A connector contribution should include:
 
-1. capability manifest;
+1. capability manifest validated against `schemas/grimoire-connector.schema.json`;
 2. authentication and minimum-permission documentation;
 3. supported resource and action matrix;
 4. rate-limit and retry behavior;
@@ -104,7 +105,7 @@ A connector contribution should include:
 9. synthetic fixtures; and
 10. conformance tests.
 
-A connector must not perform a write during discovery, normalization, or planning.
+A connector must not perform a write during discovery, normalization, or planning. Its runtime operations may not exceed the intersection of provider authorization, declared connector capabilities, and instance policy.
 
 ## Recipe requirements
 
@@ -131,7 +132,7 @@ Do not rewrite an accepted ADR to hide history. Add a new ADR that supersedes it
 
 ## Privacy
 
-Read [Privacy and Trust](docs/PRIVACY.md) before submitting logs, examples, or connector fixtures.
+Read [Privacy and Trust](docs/PRIVACY.md) and [Trust Manifests](docs/MANIFESTS.md) before submitting logs, examples, or connector fixtures.
 
 A useful bug report preserves the shape of the failure, not the identity of the person who experienced it.
 

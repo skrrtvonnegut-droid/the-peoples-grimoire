@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:peoples-grimoire:schema:event:0.1.0",
+  "title": "Grimoire Event",
+  "description": "Connector-neutral envelope for an observed external resource change.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "event_id",
+    "source",
+    "kind",
+    "occurred_at",
+    "payload",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "event_id": {
+      "type": "string",
+      "pattern": "^evt_[a-f0-9]{24}$",
+      "description": "Deterministic identifier for replay and deduplication."
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "connector",
+        "resource_type",
+        "external_id"
+      ],
+      "properties": {
+        "connector": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resource_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "external_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        }
+      }
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "created",
+        "updated",
+        "deleted",
+        "linked",
+        "unlinked"
+      ]
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "payload": {
+      "type": "object",
+      "description": "Minimal normalized fields required by an enabled recipe.",
+      "additionalProperties": true
+    },
+    "provenance": {
+      "type": "object",
+      "description": "Evidence about source, transformation, cursor, or derived processing.",
+      "additionalProperties": true
+    }
+  }
+}

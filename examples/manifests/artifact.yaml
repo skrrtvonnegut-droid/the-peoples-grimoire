@@ -1,0 +1,38 @@
+kind: grimoire.artifact
+schema_version: "0.1.0"
+id: artifact.example.project-lantern
+title: Example Project Lantern
+artifact_type: project
+classification:
+  sensitivity: private
+  publication: not-approved
+  content_policy: metadata-only
+  contains_personal_data: false
+lifecycle: developing
+representations:
+  - id: representation.example.notion-project
+    system: notion
+    resource_type: page
+    locator: notion://workspace/example/pages/example-project
+    role: canonical
+    visibility: private
+  - id: representation.example.github-repository
+    system: github
+    resource_type: repository
+    locator: github://example-org/example-repository
+    role: canonical
+    visibility: private
+authority:
+  - concern: project-narrative
+    representation: representation.example.notion-project
+    conflict_policy: hold-and-surface
+  - concern: repository-identity
+    representation: representation.example.github-repository
+    conflict_policy: canonical-wins
+  - concern: issue-state
+    representation: representation.example.github-repository
+    conflict_policy: hold-and-surface
+provenance:
+  created_by: human
+  source_type: synthetic-example
+  captured_at: "2026-08-15T00:00:00Z"

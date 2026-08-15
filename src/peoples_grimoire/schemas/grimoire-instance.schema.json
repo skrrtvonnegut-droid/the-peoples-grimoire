@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:peoples-grimoire:schema:instance:0.1.0",
+  "title": "Grimoire Instance Manifest",
+  "description": "Private deployment configuration containing policy and connector references, never secret values.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "schema_version", "instance", "policy", "systems", "state"],
+  "properties": {
+    "kind": {"const": "grimoire.instance"},
+    "schema_version": {"const": "0.1.0"},
+    "instance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "mode"],
+      "properties": {
+        "id": {"$ref": "#/$defs/stableId"},
+        "name": {"type": "string", "minLength": 1, "maxLength": 160},
+        "mode": {"enum": ["local-first", "self-hosted", "managed"]}
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "default_sensitivity",
+        "unknown_sensitivity",
+        "secret_handling",
+        "approvals"
+      ],
+      "properties": {
+        "default_sensitivity": {
+          "enum": ["operational", "private", "confidential", "high-impact"]
+        },
+        "unknown_sensitivity": {"enum": ["deny", "review-required"]},
+        "secret_handling": {"const": "references-only"},
+        "approvals": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["read", "write", "delete", "publish"],
+          "properties": {
+            "read": {"enum": ["automatic", "policy-controlled", "required"]},
+            "write": {"enum": ["policy-controlled", "required", "forbidden"]},
+            "delete": {"enum": ["required", "forbidden"]},
+            "publish": {"enum": ["required", "forbidden"]}
+          }
+        }
+      }
+    },
+    "systems": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {"$ref": "#/$defs/systemBinding"}
+    },
+    "state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["registry", "audit"],
+      "properties": {
+        "registry": {"type": "string", "minLength": 1, "maxLength": 1000},
+        "audit": {"type": "string", "minLength": 1, "maxLength": 1000}
+      }
+    },
+    "artifact_files": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    }
+  },
+  "$defs": {
+    "stableId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)+$",
+      "maxLength": 180
+    },
+    "credentialReference": {
+      "type": "string",
+      "pattern": "^(env|keyring|vault|secret-manager|op):[^\\s]+$",
+      "maxLength": 300
+    },
+    "systemBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["connector_manifest", "enabled_capabilities", "resource_allowlist"],
+      "properties": {
+        "connector_manifest": {"$ref": "#/$defs/stableId"},
+        "credential_ref": {"$ref": "#/$defs/credentialReference"},
+        "enabled_capabilities": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/stableId"}
+        },
+        "resource_allowlist": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1, "maxLength": 1000}
+        },
+        "canonical_for": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
+          }
+        }
+      }
+    }
+  }
+}

@@ -7,7 +7,7 @@ Most SaaS applications are excellent organs and terrible organisms. Each holds a
 **The People’s Grimoire** is an open-source framework for connecting those fragments into a coherent, governable whole.
 
 > [!WARNING]
-> This project is **pre-alpha**. The current runtime is a safe architectural scaffold, not a production synchronization service. It performs dry-runs and in-memory demonstrations only.
+> This project is **pre-alpha**. The current runtime validates trust manifests and provides safe dry-run and in-memory demonstrations. It is not a production synchronization service and does not yet include live Notion or GitHub API clients.
 
 ## What makes it different
 
@@ -57,7 +57,7 @@ Read the [Notion ↔ GitHub MVP design](docs/connectors/NOTION_GITHUB_MVP.md).
 
 ## Reference runtime
 
-The repository includes a deliberately small Python runtime that demonstrates the plan/apply boundary.
+The repository includes a deliberately small Python runtime that demonstrates the plan/apply boundary and validates typed trust manifests.
 
 ```bash
 python -m venv .venv
@@ -70,10 +70,25 @@ grimoire demo
 # Applies the same plan only to an in-memory recording connector.
 grimoire demo --apply
 
+# Validates synthetic connector, instance, and artifact manifests.
+grimoire validate examples/manifests
+
 pytest
 ```
 
-The runtime currently provides connector-neutral models, deterministic event and action identifiers, explicit proposed actions, dry-run behavior, per-action approval gates, and an append-only in-memory ledger. It intentionally contains no production Notion or GitHub API client yet.
+The runtime currently provides connector-neutral models, deterministic event and action identifiers, explicit proposed actions, dry-run behavior, per-action approval gates, an append-only in-memory ledger, typed manifest schemas, cross-document capability checks, and likely inline-secret detection. It intentionally contains no production Notion or GitHub API client yet.
+
+## Trust manifests
+
+Before an adapter receives real credentials, its declared powers should be inspectable.
+
+- A **connector manifest** declares supported resources, capability effects, minimum scopes, reversibility, event behavior, and redaction defaults.
+- An **instance manifest** privately selects capabilities, resource allowlists, approval policy, and credential references.
+- An **artifact manifest** gives a durable logical object stable identity and assigns canonical authority by semantic concern.
+
+The validator rejects mismatched effects, unknown enabled capabilities, inline credential-shaped values, dangling authority references, and enabled write or publication capabilities that the instance policy forbids.
+
+Read [Trust Manifests](docs/MANIFESTS.md), the [Connector Contract](docs/CONNECTOR_CONTRACT.md), and [Canonical Homes and Authority by Concern](docs/concepts/CANONICAL_HOMES.md).
 
 ## Public commons, private instance
 
@@ -83,10 +98,25 @@ A real deployment keeps private configuration and identity mappings outside this
 
 Never commit tokens, private content, production payloads, unredacted logs, workspace inventories, or mappings that expose the structure of a person’s digital life.
 
+## Standards posture
+
+The project prefers composable public standards over a private integration universe:
+
+- JSON Schema Draft 2020-12 for machine-readable contracts;
+- CloudEvents-compatible envelopes at event transport boundaries;
+- OpenAPI descriptions where an HTTP connector surface is appropriate;
+- OAuth 2.0 and OpenID Connect with least-privilege delegated authorization; and
+- an optional Model Context Protocol surface for AI hosts.
+
+MCP is a northbound interface, not the internal data model. The core must remain usable from a CLI, local UI, service, or automation client that does not involve an LLM.
+
 ## Read next
 
 - [Architecture](docs/ARCHITECTURE.md)
 - [Privacy and Trust](docs/PRIVACY.md)
+- [Trust Manifests](docs/MANIFESTS.md)
+- [Connector Contract](docs/CONNECTOR_CONTRACT.md)
+- [Canonical Homes and Authority by Concern](docs/concepts/CANONICAL_HOMES.md)
 - [Roadmap](ROADMAP.md)
 - [Governance](GOVERNANCE.md)
 - [Contributing](CONTRIBUTING.md)
@@ -101,5 +131,6 @@ Never commit tokens, private content, production payloads, unredacted logs, work
 5. **Minimum necessary access before broad permissions.**
 6. **Shared protocols before one privileged interface.**
 7. **Unity without erasing difference.**
+8. **One authority per concern; many bounded references.**
 
 The People’s Grimoire is licensed under the [Apache License 2.0](LICENSE).

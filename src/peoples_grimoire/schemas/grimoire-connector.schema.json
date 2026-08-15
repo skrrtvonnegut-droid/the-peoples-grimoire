@@ -1,0 +1,292 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:peoples-grimoire:schema:connector:0.1.0",
+  "title": "Grimoire Connector Capability Manifest",
+  "description": "Machine-readable provider capabilities, permissions, effects, and safety behavior.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "schema_version",
+    "id",
+    "name",
+    "provider",
+    "version",
+    "maturity",
+    "protocol_compatibility",
+    "authentication",
+    "resource_types",
+    "capabilities",
+    "data_handling",
+    "eventing",
+    "conformance"
+  ],
+  "properties": {
+    "kind": {"const": "grimoire.connector"},
+    "schema_version": {"const": "0.1.0"},
+    "id": {"$ref": "#/$defs/stableId"},
+    "name": {"type": "string", "minLength": 1, "maxLength": 160},
+    "provider": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$"
+    },
+    "maturity": {"enum": ["experimental", "preview", "stable", "deprecated", "archived"]},
+    "protocol_compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimum", "maximum_exclusive"],
+      "properties": {
+        "minimum": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+        "maximum_exclusive": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        }
+      }
+    },
+    "authentication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["methods", "secret_reference_schemes"],
+      "properties": {
+        "methods": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "oauth2",
+              "oidc",
+              "access-token",
+              "app-installation",
+              "service-account",
+              "api-key",
+              "none"
+            ]
+          }
+        },
+        "secret_reference_schemes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"enum": ["env", "keyring", "vault", "secret-manager", "op"]}
+        }
+      }
+    },
+    "resource_types": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "sensitivities"],
+        "properties": {
+          "id": {"$ref": "#/$defs/slug"},
+          "sensitivities": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {"$ref": "#/$defs/sensitivity"}
+          }
+        }
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/capability"}
+    },
+    "data_handling": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["default_retention", "default_log_policy", "sensitive_fields"],
+      "properties": {
+        "default_retention": {"enum": ["none", "metadata-only", "configured"]},
+        "default_log_policy": {"enum": ["deny-payload", "allowlist-fields"]},
+        "sensitive_fields": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1, "maxLength": 200}
+        }
+      }
+    },
+    "eventing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["modes", "signature_verification"],
+      "properties": {
+        "modes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"enum": ["none", "polling", "webhook", "stream"]}
+        },
+        "signature_verification": {"enum": ["required", "supported", "not-applicable"]}
+      }
+    },
+    "rate_limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["strategy"],
+      "properties": {
+        "strategy": {"enum": ["provider-headers", "documented-static", "adaptive", "unknown"]},
+        "retry_after_supported": {"type": "boolean"}
+      }
+    },
+    "conformance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["synthetic_fixtures", "contract_tests"],
+      "properties": {
+        "synthetic_fixtures": {"type": "boolean"},
+        "contract_tests": {"type": "boolean"},
+        "notes": {"type": "string", "maxLength": 1000}
+      }
+    }
+  },
+  "$defs": {
+    "stableId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)+$",
+      "maxLength": 180
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+      "maxLength": 120
+    },
+    "sensitivity": {
+      "enum": [
+        "public",
+        "operational",
+        "private",
+        "confidential",
+        "high-impact",
+        "secret",
+        "unknown"
+      ]
+    },
+    "capability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "effect",
+        "operations",
+        "resource_types",
+        "required_scopes",
+        "reversibility",
+        "approval_default"
+      ],
+      "properties": {
+        "id": {"$ref": "#/$defs/stableId"},
+        "effect": {
+          "enum": ["read", "write", "destructive", "audience-changing", "administrative"]
+        },
+        "operations": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "health",
+              "discover",
+              "search",
+              "read",
+              "observe",
+              "create",
+              "update",
+              "delete",
+              "archive",
+              "publish",
+              "invite",
+              "message",
+              "deploy",
+              "purchase",
+              "admin"
+            ]
+          }
+        },
+        "resource_types": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/slug"}
+        },
+        "required_scopes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1, "maxLength": 300}
+        },
+        "reversibility": {"enum": ["reversible", "compensating", "manual", "irreversible"]},
+        "approval_default": {"enum": ["automatic", "policy-controlled", "required", "forbidden"]},
+        "idempotency": {"enum": ["provider", "runtime", "conditional", "none", "not-applicable"]}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"effect": {"const": "read"}}, "required": ["effect"]},
+          "then": {
+            "properties": {
+              "operations": {
+                "items": {"enum": ["health", "discover", "search", "read", "observe"]}
+              },
+              "reversibility": {"const": "reversible"}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"effect": {"const": "write"}}, "required": ["effect"]},
+          "then": {
+            "properties": {
+              "operations": {"items": {"enum": ["create", "update"]}},
+              "approval_default": {"enum": ["policy-controlled", "required", "forbidden"]}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"effect": {"const": "destructive"}}, "required": ["effect"]},
+          "then": {
+            "properties": {
+              "operations": {"items": {"enum": ["delete", "archive"]}},
+              "approval_default": {"enum": ["required", "forbidden"]}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"effect": {"const": "audience-changing"}},
+            "required": ["effect"]
+          },
+          "then": {
+            "properties": {
+              "operations": {"items": {"enum": ["publish", "invite", "message"]}},
+              "approval_default": {"enum": ["required", "forbidden"]}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"effect": {"const": "administrative"}},
+            "required": ["effect"]
+          },
+          "then": {
+            "properties": {
+              "operations": {"items": {"enum": ["deploy", "purchase", "admin"]}},
+              "approval_default": {"enum": ["required", "forbidden"]}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"approval_default": {"const": "automatic"}},
+            "required": ["approval_default"]
+          },
+          "then": {"properties": {"effect": {"const": "read"}}}
+        }
+      ]
+    }
+  }
+}

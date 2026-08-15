@@ -1,0 +1,61 @@
+kind: grimoire.connector
+schema_version: "0.1.0"
+id: connector.notion-readonly
+name: Notion Read-Only Reference Connector
+provider: notion
+version: "0.1.0-experimental"
+maturity: experimental
+protocol_compatibility:
+  minimum: "0.1.0"
+  maximum_exclusive: "0.2.0"
+authentication:
+  methods:
+    - oauth2
+    - access-token
+  secret_reference_schemes:
+    - env
+    - keyring
+    - vault
+resource_types:
+  - id: page
+    sensitivities: [operational, private, confidential, high-impact]
+  - id: database
+    sensitivities: [operational, private, confidential, high-impact]
+  - id: property
+    sensitivities: [operational, private, confidential, high-impact]
+capabilities:
+  - id: capability.notion.page-read
+    effect: read
+    operations: [discover, read, observe]
+    resource_types: [page]
+    required_scopes: [explicitly-shared-pages:read]
+    reversibility: reversible
+    approval_default: policy-controlled
+    idempotency: runtime
+  - id: capability.notion.database-read
+    effect: read
+    operations: [discover, search, read, observe]
+    resource_types: [database, property]
+    required_scopes: [explicitly-shared-databases:read]
+    reversibility: reversible
+    approval_default: policy-controlled
+    idempotency: runtime
+data_handling:
+  default_retention: metadata-only
+  default_log_policy: deny-payload
+  sensitive_fields:
+    - authorization
+    - page.title
+    - page.content
+    - people.email
+    - rich_text.plain_text
+eventing:
+  modes: [polling]
+  signature_verification: not-applicable
+rate_limits:
+  strategy: provider-headers
+  retry_after_supported: true
+conformance:
+  synthetic_fixtures: true
+  contract_tests: false
+  notes: Capability example only; no production Notion client is included yet.

@@ -1,0 +1,44 @@
+kind: grimoire.instance
+schema_version: "0.1.0"
+instance:
+  id: instance.example-lantern
+  name: Example Lantern Grimoire
+  mode: local-first
+policy:
+  default_sensitivity: private
+  unknown_sensitivity: review-required
+  secret_handling: references-only
+  approvals:
+    read: policy-controlled
+    write: forbidden
+    delete: forbidden
+    publish: forbidden
+systems:
+  github:
+    connector_manifest: connector.github-readonly
+    credential_ref: env:GRIMOIRE_GITHUB_TOKEN
+    enabled_capabilities:
+      - capability.github.repository-read
+      - capability.github.issue-read
+      - capability.github.pull-request-read
+    resource_allowlist:
+      - github://example-org/example-repository
+    canonical_for:
+      - repository-identity
+      - issue-state
+  notion:
+    connector_manifest: connector.notion-readonly
+    credential_ref: env:GRIMOIRE_NOTION_TOKEN
+    enabled_capabilities:
+      - capability.notion.page-read
+      - capability.notion.database-read
+    resource_allowlist:
+      - notion://workspace/example/pages/example-project-root
+    canonical_for:
+      - project-narrative
+      - evolving-context
+state:
+  registry: sqlite:///state/grimoire.db
+  audit: sqlite:///state/grimoire.db
+artifact_files:
+  - artifact.yaml
