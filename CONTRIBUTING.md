@@ -2,7 +2,7 @@
 
 Thank you for helping build connective tissue rather than another silo—and infrastructure for liberation rather than extraction.
 
-Before contributing, read the [Manifesto](MANIFESTO.md). The project’s politics become engineering requirements: user sovereignty, anti-capture design, inspectable automation, meaningful exit, and respect for the people whose work or data a system touches.
+Before contributing, read the [Manifesto](MANIFESTO.md) and its [founding vow](MANIFESTO.md#founding-vow). The project’s politics and compassion become engineering requirements: user sovereignty, anti-capture design, inspectable automation, meaningful exit, practical care, and respect for the people whose work or data a system touches.
 
 The project is pre-alpha. Small, inspectable contributions are more useful than broad rewrites.
 
@@ -11,11 +11,13 @@ The project is pre-alpha. Small, inspectable contributions are more useful than 
 For a new connector, recipe, schema change, or architectural change, open an issue first. Explain:
 
 - the user problem;
+- which people are most constrained by the problem and whether the proposed change increases their sovereignty, safety, and meaningful choice;
 - the smallest useful capability;
 - the external permissions required;
 - the data classes involved;
 - the proposed source-of-truth rules;
 - who gains authority or saved labor, who bears risk, and whether the design increases platform dependence;
+- whether anyone could be displaced, surveilled, coerced, excluded, or made more dependent by the change;
 - failure and conflict behavior; and
 - how the change can be tested with synthetic data.
 
@@ -69,7 +71,9 @@ Prefer small commits with messages that describe the outcome.
 - [ ] Writes remain behind plan/apply and approval boundaries.
 - [ ] Replay and idempotency behavior has been considered.
 - [ ] The change increases user agency or clearly documents the trade-off.
-- [ ] The design does not introduce unnecessary surveillance, coercive automation, or platform dependence.
+- [ ] The change identifies who could be harmed, displaced, surveilled, coerced, excluded, or made more dependent and includes appropriate mitigations.
+- [ ] Safety, dignity, accessibility, consent, repair, and meaningful exit are treated as acceptance criteria where relevant.
+- [ ] The design does not introduce unnecessary surveillance, coercive automation, platform dependence, or human disposability.
 - [ ] Documentation and schemas are updated.
 - [ ] Material AI assistance is disclosed.
 - [ ] The contributor has reviewed the full diff.
