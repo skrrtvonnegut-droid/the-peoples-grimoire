@@ -1,0 +1,14 @@
+{
+  "fixture_version": "0.1.0",
+  "connector": "notion",
+  "resource_type": "page",
+  "external_id": "synthetic:notion:page:42",
+  "observed_at": "2026-08-15T00:00:00Z",
+  "payload": {
+    "title": "Synthetic capability fixture",
+    "archived": false,
+    "properties": {
+      "Status": "Planned"
+    }
+  }
+}

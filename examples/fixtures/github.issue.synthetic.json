@@ -1,0 +1,12 @@
+{
+  "fixture_version": "0.1.0",
+  "connector": "github",
+  "resource_type": "issue",
+  "external_id": "synthetic:github:issue:42",
+  "observed_at": "2026-08-15T00:00:00Z",
+  "payload": {
+    "title": "Synthetic capability fixture",
+    "state": "open",
+    "body": "Synthetic content only. No production identifiers or personal data."
+  }
+}
