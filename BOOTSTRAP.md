@@ -35,6 +35,7 @@ These are bindings to abstract roles, not hard-coded architectural dependencies.
 8. **Respect the data membrane.** Use Public, Personal Private, Professional Portfolio, Employer Confidential, and Secrets. Employer Confidential material requires an employer-approved canonical system. Secrets are never valid Grimoire content.
 9. **Prefer reuse and relation over duplication.** Link to an existing canonical object or improve it rather than creating a competing durable copy.
 10. **Make exit real.** The completed instance must document export, migration, disconnection, and deletion paths.
+11. **Continuity must outlive the interface.** The completed instance must not depend on the current chatbot’s private memory or conversation history for essential continuity. Durable identity, routing, provenance, canonical-home rules, operating conventions, and enough resumable project state to continue important work must live in operator-authorized external carriers.
 
 ## Carrier roles
 
@@ -60,7 +61,7 @@ The installation must produce or preserve these artifacts:
 5. **Bootstrap Plan** — a machine-readable plan conforming to `schemas/grimoire-bootstrap-plan.schema.json`, plus a plain-language summary.
 6. **Apply Receipt** — exact objects created, updated, reused, skipped, or blocked; include stable identifiers and safe links when available.
 7. **Garden Pass** — the installation decision record, validation results, unresolved risks, and next maintenance boundary.
-8. **Operator Handoff** — administration map, recurring maintenance rhythm, export/delete path, and provider-swap notes.
+8. **Operator Handoff** — administration map, recurring maintenance rhythm, export/delete path, provider-swap notes, and instructions for resuming the instance from a fresh AI host.
 
 Do not preserve internal chain-of-thought. Provide concise evidence, decisions, assumptions, and uncertainties that the operator can review.
 
@@ -330,8 +331,24 @@ At minimum confirm:
 - the Domain Index matches the approved profile;
 - a synthetic capture can be routed without creating a duplicate;
 - export and deletion paths are documented;
-- unresolved conflicts remain visible; and
-- the installation Garden Pass records provenance and validation.
+- unresolved conflicts remain visible;
+- the installation Garden Pass records provenance and validation; and
+- a fresh host can locate the instance map, authority rules, active domains, and at least one resumable piece of work without relying on prior conversation history.
+
+### Fresh-host continuity test
+
+As final validation, simulate the perspective of a capable AI with **zero prior conversation memory**. Using only the public People’s Grimoire bootstrap material plus the operator-authorized durable carriers, verify that it can determine:
+
+1. what this Grimoire instance is and whom it serves;
+2. where its System Manifest, domain map, and canonical-home rules live;
+3. which carrier is authoritative for the artifact or concern under test;
+4. what relevant work is currently active and where its canonical artifact lives;
+5. what provenance, decisions, constraints, and unresolved conflicts must be preserved; and
+6. what the next safe action would be without inventing missing state.
+
+The test does not require hidden chain-of-thought, identical model behavior, or recreation of every conversational nuance. It requires sufficient durable state for safe, useful continuation.
+
+If the test fails because essential context exists only in the current chatbot’s memory or prior conversation history, do not declare the bootstrap complete. Distill only the minimum necessary durable context into the appropriate canonical carrier, record provenance, and repeat the test.
 
 Then provide the **Operator Handoff**:
 
@@ -340,12 +357,13 @@ Then provide the **Operator Handoff**:
 - how to invoke Capture, Distill, Version, Publish, Garden, Trace, and Archive behaviors when supported;
 - suggested maintenance cadence;
 - how to add or replace a carrier pack;
+- how to start from a fresh chatbot or AI host and recover the instance from durable sources;
 - how to export or retire the instance; and
 - the next smallest trustworthy capability to add.
 
 ## Provider replacement rule
 
-A provider swap changes a carrier binding, not the operator’s domain model.
+A provider swap changes a carrier binding, not the operator’s domain model. This includes the **cognition provider**: replacing ChatGPT, Claude, a local model, or another compatible AI host must not require rebuilding the operator’s durable knowledge architecture.
 
 When moving from one carrier to another:
 
@@ -356,6 +374,8 @@ When moving from one carrier to another:
 5. update the System Manifest and Bridge Registry;
 6. record a Garden Pass or ADR for the change; and
 7. retire the old reference intentionally rather than silently abandoning it.
+
+For cognition-provider replacement, rerun readiness detection and the fresh-host continuity test before treating the new interface as fully operational.
 
 ## Stop and surface conditions
 
