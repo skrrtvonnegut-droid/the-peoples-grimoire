@@ -28,6 +28,20 @@ GitHub and Notion are the first carrier pair. Profiles and plans refer to abstra
 
 Read [Install Your Grimoire](INSTALL.md), then execute the [Bootstrap Steward](BOOTSTRAP.md).
 
+## Core design philosophy: continuity over interface
+
+**The Grimoire is not the chatbot.** The chatbot is the current cognition and orchestration interface into a durable, user-owned system.
+
+A successful Grimoire must preserve enough identity, topology, provenance, routing, authority rules, operating conventions, and active-work context outside any single conversation or model that a capable replacement AI can enter with no prior chat history, inspect the operator-authorized durable layers, and continue the operator’s work intelligently and traceably.
+
+This creates a hard architectural requirement: the AI host must be replaceable without requiring the operator to reconstruct their knowledge system from memory or from old chats.
+
+The project calls this the **fresh-host continuity test**. A fresh capable AI should be able to recover what the instance is, where canonical knowledge and artifacts live, what work is active, what policies apply, and what unresolved state must be preserved using the public bootstrap protocol plus the operator’s authorized durable carriers.
+
+This does not require different models to think identically. It requires the **state of the person’s system** to survive the interface that happens to be reasoning over it today.
+
+See [ADR 0006: Continuity Must Outlive the AI Interface](docs/adr/0006-continuity-over-interface.md).
+
 ## What makes it different
 
 - **User-owned:** data, mappings, policies, and credentials remain under the operator’s control.
@@ -35,6 +49,7 @@ Read [Install Your Grimoire](INSTALL.md), then execute the [Bootstrap Steward](B
 - **History-shaped:** onboarding derives durable domains from approved recurring patterns instead of imposing a generic folder tree.
 - **Connector-based:** every SaaS application is an adapter, not a dependency embedded in the core.
 - **Carrier-neutral:** semantic roles remain stable when providers are replaced.
+- **AI-portable:** durable continuity does not depend on one chatbot, model, or conversation history.
 - **Event-driven:** changes become explicit, traceable events instead of invisible background magic.
 - **Policy-governed:** every proposed synchronization can be filtered, approved, reversed, or refused.
 - **Human-accountable:** AI may interpret, draft, and coordinate, but people retain authority over consequential actions.
@@ -157,5 +172,6 @@ Never commit tokens, private content, production payloads, unredacted logs, raw 
 9. **Unity without erasing difference.**
 10. **Compassion is an engineering requirement, not a branding layer.**
 11. **No liberation may depend on another person’s disposability.**
+12. **Continuity must outlive the interface.**
 
 The People’s Grimoire is licensed under the [Apache License 2.0](LICENSE).
