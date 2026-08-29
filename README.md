@@ -13,20 +13,22 @@ Most SaaS applications are excellent organs and terrible organisms. Each holds a
 
 ## Install your own Grimoire
 
-The primary installer is a guided conversation.
+The primary installer is a guided conversation. For the default GitHub + Notion setup, the onboarding ritual is deliberately simple:
 
-1. Clone or download this repository.
-2. Connect GitHub and Notion through your chatbot host’s official integration UI.
-3. Give the chatbot access to the repository or upload `BOOTSTRAP.md` with the `bootstrap/`, `schemas/`, and `examples/bootstrap/` folders.
-4. Ask it to execute `BOOTSTRAP.md`, beginning with readiness and read-only discovery.
+1. Connect **GitHub** to your chatbot through the host’s official integration or connector UI.
+2. Connect **Notion** the same way.
+3. Start a new conversation and paste the [one-prompt installer](INSTALL_PROMPT.md).
+4. Let the chatbot locate this public repository, read the canonical [`BOOTSTRAP.md`](BOOTSTRAP.md), and begin readiness plus read-only discovery.
 5. Review the history-derived topology and bootstrap plan before approving any durable writes.
-6. Let the chatbot create or reconcile your private core and semantic control plane, then verify the result with you.
+6. After approval, let the chatbot build or reconcile the private GitHub core and Notion semantic control plane, then verify fresh-host continuity.
+
+**You do not need to clone or download this repository** when the chatbot can read the public GitHub project. The install prompt is only an ignition key; the repository remains the source of truth for the bootstrap protocol.
 
 The installer does not begin with a universal second-brain taxonomy. It inspects only the chat, notebook, file, Notion, and GitHub sources you approve; looks for recurring domains, artifact types, workflows, and existing canonical objects; and proposes a structure shaped around the life and work you actually have.
 
 GitHub and Notion are the first carrier pair. Profiles and plans refer to abstract roles—cognition, semantic memory, versioned artifacts, and secret store—so compatible providers can be replaced later without rebuilding the domain model.
 
-Read [Install Your Grimoire](INSTALL.md), then execute the [Bootstrap Steward](BOOTSTRAP.md).
+Read [Install Your Grimoire](INSTALL.md) for the full walkthrough, or go straight to the [one-prompt installer](INSTALL_PROMPT.md).
 
 ## Core design philosophy: continuity over interface
 
@@ -97,6 +99,7 @@ Read the [Notion ↔ GitHub MVP design](docs/connectors/NOTION_GITHUB_MVP.md).
 
 The bootstrap system is split into portable layers:
 
+- [`INSTALL_PROMPT.md`](INSTALL_PROMPT.md) — the small copy/paste ignition prompt.
 - [`BOOTSTRAP.md`](BOOTSTRAP.md) — executable installer protocol for a capable chatbot.
 - [`bootstrap/blueprints/`](bootstrap/blueprints/) — provider-neutral private-core and control-plane structures.
 - [`bootstrap/carriers/`](bootstrap/carriers/) — provider bindings and degraded-mode requirements.
@@ -147,6 +150,7 @@ Never commit tokens, private content, production payloads, unredacted logs, raw 
 ## Read next
 
 - [Install Your Grimoire](INSTALL.md)
+- [One-Prompt Installer](INSTALL_PROMPT.md)
 - [Bootstrap Steward](BOOTSTRAP.md)
 - [Bootstrap Protocol](docs/BOOTSTRAP_PROTOCOL.md)
 - [Manifesto](MANIFESTO.md)
