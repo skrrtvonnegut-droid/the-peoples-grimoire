@@ -10,6 +10,16 @@ The People’s Grimoire is a **federated coordination layer**, not a replacement
 
 Each application keeps its own native model. Connectors translate selected resources and events into a small canonical envelope. Recipes then propose actions according to explicit field authority, conflict, approval, and privacy rules.
 
+### Continuity over interface
+
+The AI or chatbot interface is a **replaceable cognition carrier**, not a canonical state store. Durable identity, topology, provenance, routing, authority rules, procedures, and resumable project state belong in operator-authorized durable carriers when they are required for future work.
+
+The architecture therefore uses a **fresh-host continuity test**: a capable AI with no prior conversation history should be able to enter through the public bootstrap protocol, inspect the authorized durable layers, recover the instance map and operating rules, locate active canonical work, and continue without silently inventing missing state.
+
+Portability of state does not imply identical behavior between models. The requirement is that continuity of the operator’s system must not depend on one vendor’s private model memory or inaccessible chat history.
+
+See [ADR 0006](adr/0006-continuity-over-interface.md).
+
 ```mermaid
 flowchart TD
     S[Source application] --> I[Ingest]
